@@ -1,0 +1,14 @@
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\apiTests.deps.json
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\apiTests.runtimeconfig.json
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\apiTests.runtimeconfig.dev.json
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\apiTests.dll
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\bin\Debug\netcoreapp2.2\apiTests.pdb
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\obj\Debug\netcoreapp2.2\apiTests.csprojAssemblyReference.cache
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\obj\Debug\netcoreapp2.2\apiTests.csproj.CoreCompileInputs.cache
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\obj\Debug\netcoreapp2.2\apiTests.AssemblyInfoInputs.cache
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\obj\Debug\netcoreapp2.2\apiTests.AssemblyInfo.cs
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\obj\Debug\netcoreapp2.2\apiTests.dll
+c:\Users\zachl\Documents\school\capstone\greenalytics_services\apiTests\obj\Debug\netcoreapp2.2\apiTests.pdb
