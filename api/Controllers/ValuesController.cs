@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class GreenalyticsController : ControllerBase
     {
+        private IPlantRepository _repo;
+        public GreenalyticsController(IPlantRepository repo)
+        {
+            this._repo = repo;
+        }
         // GET api/values
-        [HttpGet]
+        [HttpGet("plant")]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
         }
-
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
