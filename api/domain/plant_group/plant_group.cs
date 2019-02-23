@@ -8,6 +8,7 @@ namespace api.domain
         public string Name { get; private set; }
         public Guid PlantGroupId { get; private set; }
         public Guid HardwareId { get; private set; }
+        public List<plant> Plants{get; private set; }
         public plant_group(string name, Guid plantGroupId, Guid HardwareId)
         {
             if (name == null || name == String.Empty)

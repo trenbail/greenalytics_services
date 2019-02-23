@@ -11,15 +11,11 @@ namespace api.Controllers
     [ApiController]
     public class GreenalyticsController : ControllerBase
     {
-        private IPlantRepository _repo;
-        public GreenalyticsController(IPlantRepository repo)
-        {
-            this._repo = repo;
-        }
         // GET api/values
-        [HttpGet("plant")]
+        [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            return new List<string> { "hey", "there" };
         }
         // GET api/values/5
         [HttpGet("{id}")]
