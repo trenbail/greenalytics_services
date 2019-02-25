@@ -1,20 +1,24 @@
+using api.repositories;
 using System;
 using System.Collections.Generic;
 
 namespace api.domain
 {
-    public class Plant
+    public class Plant : ValueObject
     {
         public string Name { get; private set; }
         private List<IPlantRequirement> requirements;
+        private PlantRepository repository;
+        public PlantSchedule schedule;
 
-        public Plant(string name)
+        public Plant(string name, PlantRepository plantRepository)
         {
             if(name == null || name == String.Empty){
                 throw new ArgumentException(nameof(name));
             }
             this.Name = name;
             this.requirements = new List<IPlantRequirement>();
+            this.repository = plantRepository;
         }
 
 
