@@ -101,7 +101,7 @@ namespace apiTests.domain
                 Assert.Single(incompatibleItems);
                 Assert.Equal(incompatibleItems.First().Item1.Name, failPlant.Name);
                 Assert.False(incompatibleItems.First().Item2.Cast<MockRequirement>().First().ShouldFulfillRequirement);
-                Assert.Equal(incompatibleItems.First().Item2.Count, 2);
+                Assert.Equal(2, incompatibleItems.First().Item2.Count);
             }
             [Fact]
             public void Test_AddPlantWithMultipleFailingRequirements_ShouldReturnListWithFailing()
@@ -115,7 +115,7 @@ namespace apiTests.domain
                 _plantGroup.AddPlant(failPlant1);
                 _plantGroup.AddPlant(failPlant2);
                 var incompatibleItems = _plantGroup.GetAllIncompatibilities(new Plant("plant 3"));
-                Assert.Equal(incompatibleItems.Count, 2);
+                Assert.Equal(2, incompatibleItems.Count);
                 Assert.Equal(incompatibleItems.First().Item1.Name, failPlant1.Name);
                 Assert.Equal(incompatibleItems[1].Item1.Name, failPlant2.Name);
 
