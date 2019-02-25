@@ -6,7 +6,7 @@ namespace api.domain
     public class Plant
     {
         public string Name { get; private set; }
-        private List<PlantRequirement> requirements;
+        private List<IPlantRequirement> requirements;
 
         public Plant(string name)
         {
@@ -14,16 +14,17 @@ namespace api.domain
                 throw new ArgumentException(nameof(name));
             }
             this.Name = name;
+            this.requirements = new List<IPlantRequirement>();
         }
 
 
         ///
         /// Returns a list of requirements taht are invalidated by the given plant
         ///
-        public List<PlantRequirement> ReasonsForIncompatibility(Plant other_plant)
+        public List<IPlantRequirement> ReasonsForIncompatibility(Plant other_plant)
         {
-            List<PlantRequirement> failed_requirements = new List<PlantRequirement>();
-            foreach (PlantRequirement req in requirements)
+            List<IPlantRequirement> failed_requirements = new List<IPlantRequirement>();
+            foreach (IPlantRequirement req in requirements)
             {
                 if (!req.Verify(this, other_plant)){
                     failed_requirements.Add(req);
@@ -32,8 +33,13 @@ namespace api.domain
             return failed_requirements;
         }
 
-        public void AddRequirement(PlantRequirement req)
+        public void AddRequirement(IPlantRequirement req)
         {
+            if (req == null)
+            {
+                throw new ArgumentNullException(nameof(req));
+            }
+
             this.requirements.Add(req);
         }
     }

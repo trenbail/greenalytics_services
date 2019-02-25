@@ -28,7 +28,7 @@ namespace api.domain
             this.HardwareId = HardwareId;
         }
         public PlantGroup(string name) : this(name, Guid.NewGuid(), Guid.NewGuid()) { }
-        public (Plant, List<PlantRequirement>) Add_plants(Plant p)
+        public (Plant, List<IPlantRequirement>) Add_plants(Plant p)
         {
             throw new NotImplementedException();
         }
