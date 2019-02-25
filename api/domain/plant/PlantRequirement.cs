@@ -2,7 +2,7 @@ using System;
 
 namespace api.domain
 {
-    public class PlantRequirement
+    public abstract class PlantRequirement
     {
         private Func<Plant, Plant, bool> req;
 
