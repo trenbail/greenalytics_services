@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace apiTests
+namespace apiTests.domain
 {
     public class PlantTests
     {
