@@ -3,14 +3,12 @@ using System.Collections.Generic;
 
 namespace api.domain
 {
-    public class plant
+    public class Plant
     {
         public string Name { get; private set; }
-        //LOW, M, HIGH
-        //enemies_of
-        List<plant_requirement> requirements;
+        private List<PlantRequirement> requirements;
 
-        public plant(string name)
+        public Plant(string name)
         {
             if(name == null || name == String.Empty){
                 throw new ArgumentException(nameof(name));
@@ -22,16 +20,21 @@ namespace api.domain
         ///
         /// Returns a list of requirements taht are invalidated by the given plant
         ///
-        public List<plant_requirement> ReasonsForIncompatibility(plant other_plant)
+        public List<PlantRequirement> ReasonsForIncompatibility(Plant other_plant)
         {
-            List<plant_requirement> failed_requirements = new List<plant_requirement>();
-            foreach (plant_requirement req in requirements)
+            List<PlantRequirement> failed_requirements = new List<PlantRequirement>();
+            foreach (PlantRequirement req in requirements)
             {
                 if (!req.Verify(this, other_plant)){
                     failed_requirements.Add(req);
                 }
             }
             return failed_requirements;
+        }
+
+        public void AddRequirement(PlantRequirement req)
+        {
+            this.requirements.Add(req);
         }
     }
 }
