@@ -1,15 +1,18 @@
+using api.repositories;
 using System;
 using System.Collections.Generic;
 
 namespace api.domain
 {
-    public class Garden
+    public class Garden : Entity
     {
-        public Guid GardenId { get; private set; }
         public Guid AccountId { get; private set; }
+
+        private GardenRepository gardenRepository;
+
         public List<PlantGroup> PlantGroups{get; private set;}
         public string Name {get; private set; }
-        public Garden(string name, Guid gardenId, Guid accountId)
+        public Garden(string name, Guid gardenId, Guid accountId, GardenRepository gardenRepository)
         {
             if (name == null || name == String.Empty)
             {
@@ -24,11 +27,12 @@ namespace api.domain
                 throw new System.ArgumentException(nameof(accountId));
             }
             this.Name = name;
-            this.GardenId = gardenId;
+            this.Id = gardenId;
             this.AccountId = AccountId;
+            this.gardenRepository = gardenRepository;
         }
 
-        public Garden(string name) : this(name, Guid.NewGuid(), Guid.NewGuid()) { }
+        public Garden(string name, GardenRepository gardenRepository) : this(name, Guid.NewGuid(), Guid.NewGuid(), gardenRepository) { }
     public void AddGardenGroup()
     {
     }
