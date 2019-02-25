@@ -52,7 +52,8 @@ namespace api.domain
             }
             this.Hardware = hw ?? throw new ArgumentNullException(nameof(hw));
         }
-        public IPlantGroupStat Get_Stats()
+
+        public IPlantGroupStat GetStats()
         {
             throw new NotImplementedException();
         }
