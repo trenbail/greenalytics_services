@@ -25,18 +25,22 @@ namespace api.domain
             this.Plants = new List<Plant>();
         }
         public PlantGroup(string name) : this(name, Guid.NewGuid()) { }
-        public List<(Plant, List<IPlantRequirement>)> AddPlants(Plant p)
+        public List<(Plant, List<IPlantRequirement>)> GetAllIncompatibilities(Plant p)
         {
             List<(Plant, List<IPlantRequirement>)> incompatiblePlants = new List<(Plant, List<IPlantRequirement>)>();
             foreach(Plant plant in Plants)
             {
-                List<IPlantRequirement> incompatibleWithPlant = p.ReasonsForIncompatibility(plant);
-                if (incompatiblePlants.Any())
+                List<IPlantRequirement> incompatibleWithPlant = plant.ReasonsForIncompatibility(p);
+                if (incompatibleWithPlant.Any())
                 {
                     incompatiblePlants.Add((plant, incompatibleWithPlant));
                 }
             }
             return incompatiblePlants;
+        }
+        public void AddPlant(Plant p)
+        {
+            this.Plants.Add(p);
         }
         public void Add_Hardware()
         {
