@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
-namespace api.repositories
+namespace api.repositories.garden
 {
-    public class PlantGroupRepository : IRepository
+    public class GardenRepository : IRepository
     {
         public void Create()
         {
