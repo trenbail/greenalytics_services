@@ -15,6 +15,11 @@ namespace apiTests
                 Assert.Throws<ArgumentException>(() => new Plant(null));
             }
             [Fact]
+            public void Test_EmptyString_ShouldThrow()
+            {
+                Assert.Throws<ArgumentException>(() => new Plant(""));
+            }
+            [Fact]
             public void Test2()
             {
             }
