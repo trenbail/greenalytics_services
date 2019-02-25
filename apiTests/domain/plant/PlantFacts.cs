@@ -66,5 +66,11 @@ namespace apiTests
             {
             }
         }
+        public class TheReasonsForIncompatibilityMethod : IDisposable
+        {
+            public void Dispose()
+            {
+            }
+        }
     }
 }
