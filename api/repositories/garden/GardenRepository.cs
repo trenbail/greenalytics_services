@@ -1,6 +1,6 @@
 using System;
 
-namespace api.repositories.garden
+namespace api.repositories
 {
     public class GardenRepository : IRepository
     {

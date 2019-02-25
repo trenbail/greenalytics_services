@@ -12,10 +12,8 @@
     <AssociationLine Name="repository" Type="api.repositories.PlantRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="13.25" Y="3.819" />
-        <Point X="13.25" Y="4.5" />
-        <Point X="14" Y="4.5" />
-        <Point X="14" Y="5.562" />
-        <Point X="13.75" Y="5.562" />
+        <Point X="13.25" Y="8.062" />
+        <Point X="6" Y="8.062" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -61,13 +59,6 @@
   </Class>
   <Class Name="api.domain.Garden">
     <Position X="6.5" Y="1.75" Width="1.5" />
-    <AssociationLine Name="gardenRepository" Type="api.repositories.GardenRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="7.25" Y="4.011" />
-        <Point X="7.25" Y="5.409" />
-        <Point X="6.75" Y="5.409" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAQAAAAgAAAAQAAAAAAAAAAAAAAQABAEA=</HashCode>
       <FileName>domain\Garden.cs</FileName>
@@ -80,14 +71,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="api.domain.Hardware" Collapsed="true">
-    <Position X="10.75" Y="6.5" Width="1.5" />
+    <Position X="10.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>domain\Hardware.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="api.repositories.GardenRepository">
-    <Position X="4.75" Y="4.25" Width="2" />
+    <Position X="4.25" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>repositories\GardenRepository.cs</FileName>
@@ -95,7 +86,7 @@
     <Lollipop Position="0.1" />
   </Class>
   <Class Name="api.repositories.PlantGroupRepository" Collapsed="true">
-    <Position X="7.5" Y="6.25" Width="1.5" />
+    <Position X="4.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>repositories\PlantGroupRepository.cs</FileName>
@@ -103,7 +94,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="api.repositories.PlantRepository">
-    <Position X="12.25" Y="4.75" Width="1.5" />
+    <Position X="4.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>repositories\PlantRepository.cs</FileName>
@@ -124,11 +115,34 @@
       <FileName>domain\plant\ValueObject.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="api.domain.plant.requirements.WaterCompatibilityRequirement" Collapsed="true">
+    <Position X="19" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\requirements\WaterCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="api.domain.plant.requirements.TemperatureCompatibilityRequirement" Collapsed="true">
+    <Position X="19" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>domain\plant\requirements\TemperatureCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="api.domain.plant.requirements.SunlightCompatibilityRequirement" Collapsed="true">
+    <Position X="19" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\requirements\SunlightCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="api.domain.IPlantRequirement">
     <Position X="16.5" Y="2.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>domain\plant\PlantRequirement.cs</FileName>
+      <FileName>domain\plant\IPlantRequirement.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="api.repositories.IRepository">
