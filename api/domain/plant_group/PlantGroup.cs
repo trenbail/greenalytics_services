@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace api.domain
 {
@@ -21,11 +22,21 @@ namespace api.domain
             }
             this.Name = name;
             this.PlantGroupId = plantGroupId;
+            this.Plants = new List<Plant>();
         }
         public PlantGroup(string name) : this(name, Guid.NewGuid()) { }
-        public (Plant, List<IPlantRequirement>) Add_plants(Plant p)
+        public List<(Plant, List<IPlantRequirement>)> AddPlants(Plant p)
         {
-            throw new NotImplementedException();
+            List<(Plant, List<IPlantRequirement>)> incompatiblePlants = new List<(Plant, List<IPlantRequirement>)>();
+            foreach(Plant plant in Plants)
+            {
+                List<IPlantRequirement> incompatibleWithPlant = p.ReasonsForIncompatibility(plant);
+                if (incompatiblePlants.Any())
+                {
+                    incompatiblePlants.Add((plant, incompatibleWithPlant));
+                }
+            }
+            return incompatiblePlants;
         }
         public void Add_Hardware()
         {

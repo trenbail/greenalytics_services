@@ -29,5 +29,45 @@ namespace apiTests.domain
             {
             }
         }
+        public class TheAddPlantsConstructor : IDisposable
+        {
+            private PlantGroup _plantGroup;
+
+            public TheAddPlantsConstructor()
+            {
+                _plantGroup = new PlantGroup("test plant group");
+            }
+
+            public class MockRequirement : IPlantRequirement
+            {
+                public bool ShouldFulfillRequirement { get; private set; }
+                public MockRequirement(bool succeed)
+                {
+                    this.ShouldFulfillRequirement = succeed;
+                }
+
+                public bool Verify(Plant plant1, Plant plant2)
+                {
+                    return ShouldFulfillRequirement;
+                }
+            }
+
+            [Fact]
+            public void Test_AddPlantsANDEmptyPlants_ShouldReturnEmptyList()
+            {
+                _plantGroup.AddPlants(new Plant("test plant"));
+            }
+            [Fact]
+            public void Test_AddPlantsWithPassingRequirements_ShouldReturnEmptyList()
+            {
+                Plant plant1 = new Plant("plant 1");
+                plant1.AddRequirement(new MockRequirement(true));
+                List<(Plant, List<IPlantRequirement>)> incompatiblePlants = _plantGroup.AddPlants(plant1);
+                Assert.Empty(incompatiblePlants);
+            }
+            public void Dispose()
+            {
+            }
+        }
     }
 }
