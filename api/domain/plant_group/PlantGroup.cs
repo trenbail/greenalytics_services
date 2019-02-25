@@ -9,7 +9,7 @@ namespace api.domain
         public Guid PlantGroupId { get; private set; }
         public Guid HardwareId { get; private set; }
         public List<Plant> Plants{get; private set; }
-        public PlantGroup(string name, Guid plantGroupId, Guid HardwareId)
+        public PlantGroup(string name, Guid plantGroupId)
         {
             if (name == null || name == String.Empty)
             {
@@ -19,15 +19,10 @@ namespace api.domain
             {
                 throw new System.ArgumentException(nameof(plantGroupId));
             }
-            if (HardwareId == Guid.Empty)
-            {
-                throw new System.ArgumentException(nameof(HardwareId));
-            }
             this.Name = name;
             this.PlantGroupId = plantGroupId;
-            this.HardwareId = HardwareId;
         }
-        public PlantGroup(string name) : this(name, Guid.NewGuid(), Guid.NewGuid()) { }
+        public PlantGroup(string name) : this(name, Guid.NewGuid()) { }
         public (Plant, List<IPlantRequirement>) Add_plants(Plant p)
         {
             throw new NotImplementedException();
@@ -36,7 +31,7 @@ namespace api.domain
         {
 
         }
-        public PlantGroupStats Get_Stats()
+        public IPlantGroupStat Get_Stats()
         {
             throw new NotImplementedException();
         }
