@@ -8,8 +8,9 @@ namespace api.domain
     {
         public string Name { get; private set; }
         public Guid PlantGroupId { get; private set; }
-        public Guid HardwareId { get; private set; }
         public List<Plant> Plants{get; private set; }
+        public Hardware Hardware { get; private set; }
+
         public PlantGroup(string name, Guid plantGroupId)
         {
             if (name == null || name == String.Empty)
@@ -42,9 +43,9 @@ namespace api.domain
         {
             this.Plants.Add(p);
         }
-        public void Add_Hardware()
+        public void Add_Hardware(Hardware hw)
         {
-
+            this.Hardware = hw;
         }
         public IPlantGroupStat Get_Stats()
         {
