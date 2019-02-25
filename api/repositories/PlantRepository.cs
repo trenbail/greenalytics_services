@@ -2,7 +2,7 @@ using System;
 
 namespace api.repositories
 {
-    public class plant_repository
+    public class PlantRepository
     {
     }
 }
