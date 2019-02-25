@@ -43,9 +43,14 @@ namespace api.domain
         {
             this.Plants.Add(p);
         }
-        public void Add_Hardware(Hardware hw)
+
+        public void AddHardware(Hardware hw)
         {
-            this.Hardware = hw;
+            if(this.Hardware != null)
+            {
+                throw new ArgumentException(nameof(hw));
+            }
+            this.Hardware = hw ?? throw new ArgumentNullException(nameof(hw));
         }
         public IPlantGroupStat Get_Stats()
         {

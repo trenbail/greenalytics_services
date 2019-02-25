@@ -146,12 +146,43 @@ namespace apiTests.domain
             [MemberData(nameof(Data))]
             public void Test_AddPlant_ShouldSucceced(params Plant[] plants)
             {
-                foreach(Plant plant in plants)
+                foreach (Plant plant in plants)
                 {
                     _plantGroup.AddPlant(plant);
                 }
             }
 
+            public void Dispose()
+            {
+
+            }
+        }
+        public class TheAddHardwareMethod : IDisposable
+        {
+            private PlantGroup _plantGroup;
+
+            public TheAddHardwareMethod()
+            {
+                _plantGroup = new PlantGroup("test plant group");
+            }
+
+            [Fact]
+            public void Test_AddHardware_ShouldSucceced()
+            {
+                _plantGroup.AddHardware(new Hardware());
+            }
+
+            [Fact]
+            public void Test_AddHardware_HardwareAlreadyExists_ShouldThrow()
+            {
+                _plantGroup.AddHardware(new Hardware());
+                Assert.Throws<ArgumentException>(() => _plantGroup.AddHardware(new Hardware()));
+            }
+            [Fact]
+            public void Test_NullHardware_ShouldThrow()
+            {
+                Assert.Throws<ArgumentNullException>(() => _plantGroup.AddHardware(null));
+            }
             public void Dispose()
             {
 
