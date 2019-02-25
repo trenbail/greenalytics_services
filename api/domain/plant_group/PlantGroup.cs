@@ -54,5 +54,9 @@ namespace api.domain
         {
             throw new NotImplementedException();
         }
+        public void AddStats()
+        {
+
+        }
     }
 }
