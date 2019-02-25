@@ -19,10 +19,6 @@ namespace apiTests
             {
                 Assert.Throws<ArgumentException>(() => new Plant(""));
             }
-            [Fact]
-            public void Test2()
-            {
-            }
             public void Dispose()
             {
             }
