@@ -122,9 +122,39 @@ namespace apiTests.domain
                 Assert.False(incompatibleItems.First().Item2.Cast<MockRequirement>().First().ShouldFulfillRequirement);
                 Assert.False(incompatibleItems[1].Item2.Cast<MockRequirement>().First().ShouldFulfillRequirement);
             }
+            public void Dispose()
+            {
+            }
+        }
+        public class TheAddPlantMethod : IDisposable
+        {
+            private PlantGroup _plantGroup;
+
+            public TheAddPlantMethod()
+            {
+                _plantGroup = new PlantGroup("test plant group");
+            }
+
+            public static IEnumerable<object[]> Data =>
+                new List<Plant[]> {
+                    new Plant[] { new Plant("plant 1") },
+                    new Plant[] {new Plant("plant2") },
+                    new Plant[] {new Plant("plant$$3") },
+                    new Plant[] {new Plant("plant$$1"), new Plant("plant2") },
+                };
+            [Theory]
+            [MemberData(nameof(Data))]
+            public void Test_AddPlant_ShouldSucceced(params Plant[] plants)
+            {
+                foreach(Plant plant in plants)
+                {
+                    _plantGroup.AddPlant(plant);
+                }
+            }
 
             public void Dispose()
             {
+
             }
         }
     }
