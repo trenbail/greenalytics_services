@@ -1,4 +1,3 @@
-using api.repositories;
 using System;
 using System.Collections.Generic;
 
@@ -8,17 +7,15 @@ namespace api.domain
     {
         public string Name { get; private set; }
         private List<IPlantRequirement> requirements;
-        private PlantRepository repository;
-        public PlantSchedule schedule;
+        private PlantSchedule schedule;
 
-        public Plant(string name, PlantRepository plantRepository)
+        public Plant(string name)
         {
             if(name == null || name == String.Empty){
                 throw new ArgumentException(nameof(name));
             }
             this.Name = name;
             this.requirements = new List<IPlantRequirement>();
-            this.repository = plantRepository;
         }
 
 

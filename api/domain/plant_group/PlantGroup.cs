@@ -1,4 +1,3 @@
-using api.repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +7,22 @@ namespace api.domain
     public class PlantGroup : Entity
     {
         public string Name { get; private set; }
-        public List<Plant> Plants{get; private set; }
+
+        private List<Plant> Plants;
+        private Hardware Hardware;
         private List<IPlantGroupStat> statistics;
 
-        private PlantGroupRepository repo;
-
-        public Hardware Hardware { get; private set; }
-
-        public PlantGroup(string name, Guid plantGroupId, PlantGroupRepository plantGroupRepository)
+        public PlantGroup(string name)
         {
             if (name == null || name == String.Empty)
             {
                 throw new System.ArgumentException(nameof(name));
             }
-            if (plantGroupId == Guid.Empty)
-            {
-                throw new System.ArgumentException(nameof(plantGroupId));
-            }
+
             this.Name = name;
-            this.Id = plantGroupId;
+            this.Id = Guid.NewGuid();
             this.Plants = new List<Plant>();
-            this.repo = plantGroupRepository;
         }
-        public PlantGroup(string name, PlantGroupRepository repository) : this(name, Guid.NewGuid(), repository) { }
         public List<(Plant, List<IPlantRequirement>)> GetAllIncompatibilities(Plant p)
         {
             List<(Plant, List<IPlantRequirement>)> incompatiblePlants = new List<(Plant, List<IPlantRequirement>)>();

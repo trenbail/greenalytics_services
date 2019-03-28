@@ -1,9 +1,11 @@
-﻿namespace api.repositories
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace api.repositories
 {
     public interface IRepository
     {
-        void Create();
-        void Update();
-        void Delete();
     }
 }

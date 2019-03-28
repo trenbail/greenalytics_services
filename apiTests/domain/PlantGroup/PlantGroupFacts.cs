@@ -21,11 +21,6 @@ namespace apiTests.domain
             {
                 Assert.Throws<ArgumentException>(() => new PlantGroup(""));
             }
-            [Fact]
-            public void Test_EmptyGuid_ShouldThrow()
-            {
-                Assert.Throws<ArgumentException>(() => new PlantGroup("name", Guid.Empty));
-            }
             public void Dispose()
             {
             }
