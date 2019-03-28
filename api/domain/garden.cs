@@ -1,6 +1,7 @@
 using api.repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace api.domain
 {
@@ -28,6 +29,10 @@ namespace api.domain
         public void AddPlantGroup(PlantGroup plantGroup)
         {
             this.PlantGroups.Add(plantGroup);
+        }
+        public PlantGroup GetPlantGroup(string name)
+        {
+            return this.PlantGroups.SingleOrDefault(pg => pg.Name == name);
         }
         public void GetStats()
         {

@@ -30,7 +30,7 @@ namespace api.Controllers
         public ActionResult<Plant> GetPlantByName(string name)
         {
             var plant = PlantRepository.GetByName(name);
-            if(plant == null)
+            if (plant == null)
             {
                 return plant;
             }
@@ -57,6 +57,23 @@ namespace api.Controllers
                 return garden;
             }
             return NotFound();
+        }
+
+        [HttpGet("incompatibilities")]
+        public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName){
+            var plantGroup = PlantGroupRepository.GetByName(plantGroupName);
+            if (plantGroup != null)
+            {
+                return NotFound();
+            }
+            var plant = PlantRepository.GetByName(plantName);
+            if(plant == null)
+            {
+                return NotFound();
+            }
+            List<(Plant, List<IPlantRequirement>)> requirementList = plantGroup.GetAllIncompatibilities(plant);
+            return requirementList.ToDictionary(tup => tup.Item1, tup => tup.Item2);
+
         }
         #endregion
 
