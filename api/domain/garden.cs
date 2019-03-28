@@ -25,8 +25,9 @@ namespace api.domain
             this.AccountId = AccountId;
         }
 
-        public void AddGardenGroup()
+        public void AddPlantGroup(PlantGroup plantGroup)
         {
+            this.PlantGroups.Add(plantGroup);
         }
         public void GetStats()
         {
