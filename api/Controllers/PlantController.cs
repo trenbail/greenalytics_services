@@ -80,6 +80,32 @@ namespace api.Controllers
             GardenRepository.CreateGarden(garden);
         }
 
+        [HttpPost("garden/plantGroup")]
+        public void AddPlantGroupToGarden(string gardenName, string plantGroupName)
+        {
+            if (string.IsNullOrEmpty(gardenName) || string.IsNullOrWhiteSpace(gardenName))
+            {
+                return;
+            }
+            Garden garden = GardenRepository.GetByName(gardenName);
+            if(garden == null)
+            {
+                return;
+            }
+
+            if(string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
+            {
+                return;
+            }
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName);
+            if(plantGroup == null)
+            {
+                return;
+            }
+            garden.AddPlantGroup(plantGroup);
+            GardenRepository.Update(garden);
+        }
+
         [HttpPost("plant")]
         public void PostPlant([FromBody] string name)
         {
