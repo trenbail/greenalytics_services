@@ -1,10 +1,16 @@
 using System;
+using System.Data;
 using api.domain;
 
 namespace api.repositories
 {
     public class PlantRepository : IPlantRepository
     {
+        public PlantRepository(IDbConnection conn)
+        {
+
+        }
+
         public void Create()
         {
             throw new NotImplementedException();
