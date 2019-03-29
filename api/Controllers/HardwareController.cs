@@ -23,35 +23,36 @@ namespace api.Controllers
 
         #region POST
         [HttpPost("plantgroup/{plantgroupname}/hardware")]
-        public void PostLightSensor(Guid HardwareMAC, int UTCTime , string plantgroupname)
+        public void PostLightSensor(Guid HardwareMAC, int UTCTime ,int SensorValue, string plantgroupname)
         {
             if (String.IsNullOrEmpty(plantgroupname))
             {
                 throw new System.ArgumentNullException(nameof(plantgroupname));
             }
-            //TODO: Assign static sensorType
-            //TODO: Assign static id for hardware
+            //TODO: Assign dynamic id for hardware
+            int SensorID = 0;
 
-            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantgroupname);
-
-
-
-
+            PlantGroupRepository.InsertLightData(HardwareMAC,UTCTime,SensorID,SensorValue);
 
         }
 
         [HttpPost("/plantGroup/hardware")]
-        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, string plantgroupname)
+        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, int SensorValue, string plantgroupname)
         {
-            //TODO: Assign static sensorType
-            //TODO: Assign static id for hardware
+            //TODO: Assign dynamic id for hardware
+            int SensorID = 0;
+
+            PlantGroupRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorID, SensorValue);
+
         }
 
         [HttpPost("/plantGroup/hardware")]
-        public void PostHumidity(Guid HardwareMAC, int UTCTime , string plantgroupname)
+        public void PostHumidity(Guid HardwareMAC, int UTCTime, int SensorValue, string plantgroupname)
         {
-            //TODO: Assign static sensorType
-            //TODO: Assign static id for hardware
+            //TODO: Assign dynamic id for hardware
+            int SensorID = 0;
+
+            PlantGroupRepository.InsertHumidityData(HardwareMAC, UTCTime, SensorID, SensorValue);
 
         }
         #endregion
