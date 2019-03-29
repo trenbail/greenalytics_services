@@ -43,7 +43,6 @@ namespace api.Controllers
             int SensorID = 0;
 
             PlantGroupRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorID, SensorValue);
-
         }
 
         [HttpPost("/plantGroup/hardware")]
@@ -53,8 +52,13 @@ namespace api.Controllers
             int SensorID = 0;
 
             PlantGroupRepository.InsertHumidityData(HardwareMAC, UTCTime, SensorID, SensorValue);
-
         }
+        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, string plantgroupname)
+        {
+            //TODO: Assign static sensorType
+            //TODO: Assign static id for hardware
+        }
+
         #endregion
     }
 }
