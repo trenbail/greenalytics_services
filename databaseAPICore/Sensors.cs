@@ -42,7 +42,22 @@ namespace databaseAPI.sensors
             MySqlDataReader newTable = cmd.ExecuteReader();
 
             Close();
+        }
 
+        // Used for sending data into the database
+        public void Insert(string MACaddress, long time, int id, string type, int value)
+        {
+            //constructing query
+            string query = "INSERT INTO `" + MACaddress + "` VALUES (" + time + "," + id + ",\"" + type + "\"," + value + ");";
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader newTable = cmd.ExecuteReader();
+
+            Close();
         }
     }
 }
