@@ -18,8 +18,7 @@ namespace databaseAPI.sensors
         public void CreateTable(string address)
         {
             //constructing query
-            string query = "CREATE TABLE `" + address + "`(timeStamp BIGINT(20) NOT NULL PRIMARY KEY, photo BIGINT(20) NOT NULL, humidity BIGINT(20) NOT NULL, temp BIGINT(20) NOT NULL);";
-            Console.Write(query);
+            string query = "CREATE TABLE `" + address + "`(timeStamp BIGINT(20) NOT NULL,sensorID INT NOT NULL,type VARCHAR(20) NOT NULL,value BIGINT(20), PRIMARY KEY (timeStamp,sensorID));";
             //Open connection
             Open();
 
