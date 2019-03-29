@@ -1,6 +1,6 @@
 using System;
 using api.domain;
-using databaseAPI.sensors;
+using db.sensors;
 
 namespace api.repositories
 {

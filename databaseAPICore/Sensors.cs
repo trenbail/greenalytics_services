@@ -1,7 +1,7 @@
-﻿using dabaseAPI.connections;
+﻿using db.connections;
 using MySql.Data.MySqlClient;
 using System;
-namespace databaseAPI.sensors
+namespace db.sensors
 {
 
     public class Sensors : Connect

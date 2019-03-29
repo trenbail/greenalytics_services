@@ -2,7 +2,7 @@
 using MySql.Data.MySqlClient;
 
 
-namespace dabaseAPI.connections
+namespace db.connections
 {
 
 

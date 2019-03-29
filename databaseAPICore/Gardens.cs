@@ -1,8 +1,8 @@
 ﻿using System;
-using dabaseAPI.connections;
+using db.connections;
 using MySql.Data.MySqlClient;
 
-namespace databaseAPI.gardens
+namespace db.gardens
 {
 
     class Gardens : Connect

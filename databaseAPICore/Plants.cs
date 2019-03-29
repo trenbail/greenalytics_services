@@ -2,9 +2,9 @@
 using System.IO; //used for file reading
 using MySql.Data.MySqlClient;
 using System.Collections.Generic; //used for lists
-using dabaseAPI.connections;
+using db.connections;
 
-namespace databaseAPI.plants
+namespace db.plants
 {
     class Plants : Connect
     {

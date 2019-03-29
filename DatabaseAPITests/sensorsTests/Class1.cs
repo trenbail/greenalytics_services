@@ -1,4 +1,4 @@
-﻿using databaseAPI.sensors;
+﻿using db.sensors;
 using Xunit;
 
 namespace DatabaseAPITests.sensorsTests
