@@ -74,6 +74,9 @@ namespace api.Controllers
             List<(Plant, List<IPlantRequirement>)> requirementList = plantGroup.GetAllIncompatibilities(plant);
             return requirementList.ToDictionary(tup => tup.Item1, tup => tup.Item2);
         }
+
+        [HttpGet("statistics")]
+        
         #endregion
 
         #region POST

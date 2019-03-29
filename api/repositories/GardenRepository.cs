@@ -1,5 +1,6 @@
 using System;
 using api.domain;
+using databaseAPI.sensors;
 
 namespace api.repositories
 {
@@ -13,13 +14,13 @@ namespace api.repositories
 
         public void Delete()
         {
-            //DELETE
+            
             throw new NotImplementedException();
         }
 
         public Garden GetByName(string name)
         {
-            //SELECT
+            
             throw new NotImplementedException();
         }
 
@@ -31,6 +32,12 @@ namespace api.repositories
         public void Update(Garden garden)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddSensor()
+        {
+            Sensors sensor = new Sensors();
+            sensor.CreateTable("xoxo");
         }
     }
 }

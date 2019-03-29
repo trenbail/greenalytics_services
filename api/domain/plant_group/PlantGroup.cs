@@ -36,6 +36,12 @@ namespace api.domain
             }
             return incompatiblePlants;
         }
+
+        public Guid getHardwareID()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddPlant(Plant p)
         {
             this.Plants.Add(p);
