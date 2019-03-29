@@ -42,5 +42,19 @@ namespace api.repositories
             Sensors sensors = new Sensors();
         }
 
+        public void InsertTemperatureData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertLightData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
