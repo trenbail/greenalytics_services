@@ -19,6 +19,7 @@ namespace db.sensors
         {
             //constructing query
             string query = "CREATE TABLE `" + address + "`(timeStamp BIGINT(20) NOT NULL,sensorID INT NOT NULL,type VARCHAR(20) NOT NULL,value BIGINT(20), PRIMARY KEY (timeStamp,sensorID));";
+            
             //Open connection
             Open();
 
