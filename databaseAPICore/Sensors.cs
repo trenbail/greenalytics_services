@@ -27,9 +27,21 @@ namespace databaseAPI.sensors
             MySqlDataReader newTable = cmd.ExecuteReader();
 
             Close();
+        }
 
-            //Create a data reader and Execute the command
-            //MySqlDataReader dataReader = cmd.ExecuteReader();
+        public void RemoveTable(string address)
+        {
+            //constructing query
+            string query = "DROP TABLE `" + address + "`;";
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader newTable = cmd.ExecuteReader();
+
+            Close();
 
         }
     }
