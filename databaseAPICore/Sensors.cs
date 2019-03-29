@@ -18,8 +18,7 @@ namespace db.sensors
         public void CreateTable(string address)
         {
             //constructing query
-            string query = "CREATE TABLE `" + address + "`(timeStamp BIGINT(20) NOT NULL PRIMARY KEY, photo BIGINT(20) NOT NULL, humidity BIGINT(20) NOT NULL, temp BIGINT(20) NOT NULL);";
-            Console.Write(query);
+            string query = "CREATE TABLE `" + address + "`(timeStamp BIGINT(20) NOT NULL,sensorID INT NOT NULL,type VARCHAR(20) NOT NULL,value BIGINT(20), PRIMARY KEY (timeStamp,sensorID));";
             //Open connection
             Open();
 
@@ -28,10 +27,37 @@ namespace db.sensors
             MySqlDataReader newTable = cmd.ExecuteReader();
 
             Close();
+        }
 
-            //Create a data reader and Execute the command
-            //MySqlDataReader dataReader = cmd.ExecuteReader();
+        public void RemoveTable(string address)
+        {
+            //constructing query
+            string query = "DROP TABLE `" + address + "`;";
 
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader newTable = cmd.ExecuteReader();
+
+            Close();
+        }
+
+        // Used for sending data into the database
+        public void Insert(string MACaddress, long time, int id, string type, int value)
+        {
+            //constructing query
+            string query = "INSERT INTO `" + MACaddress + "` VALUES (" + time + "," + id + ",\"" + type + "\"," + value + ");";
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader newTable = cmd.ExecuteReader();
+
+            Close();
         }
     }
 }
