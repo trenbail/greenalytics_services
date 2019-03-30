@@ -2,9 +2,8 @@ using System;
 
 namespace api.domain
 {
-    public class Hardware
+    public class Hardware : Entity
     {
-        private Guid id;
         public Hardware()
         {
         }

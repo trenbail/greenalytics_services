@@ -39,7 +39,7 @@ namespace api.domain
 
         public Guid getHardwareID()
         {
-            throw new NotImplementedException();
+            return this.Hardware.Id;
         }
 
         public void AddPlant(Plant p)
