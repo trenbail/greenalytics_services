@@ -8,7 +8,7 @@ namespace api.repositories
     {
         Garden GetByName(string name);
         void CreateGarden(Garden garden);
-        void Update(Garden garden);
         ActionResult<List<Garden>> GetAllGardens(string accountID);
+        void AddPlantGroup(Garden garden);
     }
 }

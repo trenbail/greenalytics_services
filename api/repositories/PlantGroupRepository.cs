@@ -10,37 +10,7 @@ namespace api.repositories
 {
     public class PlantGroupRepository : IPlantGroupRepository
     {
-        public void Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreatePlantGroup(PlantGroup plantGroup)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public PlantGroup GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertTemperatureData(int UTCTime, string SensorType, int SensorID, int SensorValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertLightData(int UTCTime, string SensorType, int SensorID, int SensorValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
+        public void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +22,17 @@ namespace api.repositories
             Sensors sensors = new Sensors();
         }
 
-        public void InsertTemperatureData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
+        public void CreatePlantGroup(PlantGroup plantGroup)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PlantGroup GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
         {
             throw new NotImplementedException();
         }
@@ -62,7 +42,7 @@ namespace api.repositories
             throw new NotImplementedException();
         }
 
-        public void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
+        public void InsertTemperatureData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
         {
             throw new NotImplementedException();
         }

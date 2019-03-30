@@ -127,7 +127,35 @@ namespace api.Controllers
                 return;
             }
             garden.AddPlantGroup(plantGroup);
-            GardenRepository.Update(garden);
+            GardenRepository.AddPlantGroup(garden);
+        }
+
+        [HttpPost("plantGroup/{plantGroupName}/add/{plantName}")]
+        public void AddPlantToPlantGroup(string plantGroupName, string plantName)
+        {
+            if (string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
+            {
+                return;
+            }
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName);
+            if (plantGroup == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(plantName) || string.IsNullOrWhiteSpace(plantName))
+            {
+                return;
+            }
+
+            Plant plant = PlantRepository.GetByName(plantName);
+            if (plantGroup == null)
+            {
+                return;
+            }
+
+            plantGroup.AddPlant(plant);
+            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant);
         }
 
         [HttpPost("plant")]
