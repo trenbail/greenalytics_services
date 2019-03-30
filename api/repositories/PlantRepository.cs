@@ -24,8 +24,11 @@ namespace api.repositories
             var plantID = plantDB.Convert(name);
             db.plants.PlantInfo plantInfo = plantDB.PlantData(plantID);
 
-            var sunlightRequirement = new SunlightCompatibilityRequirement(plantInfo.Sunlight);
-            //temp req
+
+            List<IPlantRequirement> requirements = new List<IPlantRequirement>();
+            requirements.Add(new SunlightCompatibilityRequirement(plantInfo.Sunlight));
+            requirements.Add(new TemperatureCompatibilityRequirement(plantInfo.Temperature));
+
             //soil req
             //rainfall req
             var plantType = plantInfo.Type;
@@ -34,7 +37,6 @@ namespace api.repositories
 
             Plant plant = new Plant(name);
             plant.plantType = plantType;
-            List<IPlantRequirement> requirements = new List<IPlantRequirement> { sunlightRequirement }; //Get Requirements
 
             foreach(IPlantRequirement requirement in requirements)
             {
