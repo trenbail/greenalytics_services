@@ -13,7 +13,7 @@ namespace api.repositories
         public void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant, string userID)
         {
             var groupDB = new db.groups.Groups();
-            groupDB.AddPlant(userID, plantGroup.Id, plant.Name);
+            groupDB.AddPlant(userID, plantGroup.Name, plant.Name);
         }
 
         public void AddSensor(PlantGroup plantGroup)
@@ -23,14 +23,17 @@ namespace api.repositories
             Sensors sensors = new Sensors();
         }
 
-        public void CreatePlantGroup(PlantGroup plantGroup)
+        public void CreatePlantGroup(PlantGroup plantGroup, string userID)
         {
             throw new NotImplementedException();
         }
 
-        public PlantGroup GetByName(string name)
+        public PlantGroup GetByName(string name, string userID)
         {
-            return new PlantGroup(name);
+            var plantGroup = new PlantGroup(name);
+            var groupDB = new db.groups.Groups();
+            //ifndef throw
+            return plantGroup;
         }
 
         public void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)

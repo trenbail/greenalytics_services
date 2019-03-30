@@ -26,6 +26,7 @@ namespace api.repositories
         public Garden GetByName(string name)
         {
             throw new NotImplementedException();
+            //ifnexist throw exception
         }
     }
 }
