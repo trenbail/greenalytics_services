@@ -127,7 +127,7 @@ namespace api.Controllers
                 return;
             }
             garden.AddPlantGroup(plantGroup);
-            GardenRepository.AddPlantGroup(garden);
+            GardenRepository.AddPlantGroup(garden); //should be update
         }
 
         [HttpPost("plantGroup/{plantGroupName}/add/{plantName}")]
@@ -155,7 +155,7 @@ namespace api.Controllers
             }
 
             plantGroup.AddPlant(plant);
-            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID);
+            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID); //should be update
         }
 
         [HttpPost("plant")]
