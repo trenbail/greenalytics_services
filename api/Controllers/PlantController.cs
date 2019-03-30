@@ -101,7 +101,7 @@ namespace api.Controllers
             GardenRepository.CreateGarden(garden);
         }
 
-        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}]")]
+        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}")]
         public void CreatePlantGroup(string gardenName, string plantGroupName, string userID)
         {
             if (string.IsNullOrEmpty(gardenName))
