@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using db.plants;
 
 namespace api.domain.plant.requirements
 {
-    public enum sunlight_classes { low, med, med_high, high }
+
     public class SunlightCompatibilityRequirement : IPlantRequirement
     {
         public sunlight_classes sunlightLevel;

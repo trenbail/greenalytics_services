@@ -6,6 +6,21 @@ using db.connections;
 
 namespace db.plants
 {
+
+    public enum soil_classes { low, med, med_high, high } //This may need to change because I am unsure how we will categorize soil
+    public enum temperature_classes { low, med, med_high, high }
+    public enum sunlight_classes { low, med, med_high, high }
+
+    public struct PlantInfo
+    {
+        public string Name;
+        public string Type;
+        public float Rainfall;
+        public sunlight_classes Sunlight;
+        public temperature_classes Temperature;
+        public soil_classes Soil;
+    }
+
     class Plants : Connect
     {
         //Constructor call to base case - selecting 'plants' database
@@ -59,11 +74,14 @@ namespace db.plants
 
         //mySQL functions
 
-        //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
-        public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
+        //public wrapper for 'Select * FROM __' in SelectALL in Connection
+        public MySqlDataReader ShowAll(string tableName)
+        {
+            return SelectAll(tableName); //todo fill out
+        }
 
-        //returns information for 'plant info screen' - return type may need to be changed after talking to Zack
-        public MySqlDataReader PlantData(string plantID)
+        //returns plantInfo struct
+        public PlantInfo PlantData(string plantID)
         {
             //constructing query
             string query = "SELECT p.name, d.type, d.rainfall, d.temperature, d.humidity, d.sunlight, d.soil FROM masterPlants p, plantData d WHERE p.plantID = d.plantID AND p.plantID = " + plantID + ";";
@@ -77,12 +95,26 @@ namespace db.plants
             //Create a data reader and Execute the command
             MySqlDataReader dataReader = cmd.ExecuteReader();
 
-            //return the MySqlDataReader to be used - may need to switch this after talking to zack
-            return (dataReader);
+            PlantInfo returnInfo = new PlantInfo();
+
+            while (dataReader.Read())
+            {
+                returnInfo.Name = dataReader.GetString("plantName");
+                returnInfo.Type = dataReader.GetString("type");
+                returnInfo.Rainfall = dataReader.GetFloat("rainfall");
+                Enum.TryParse<sunlight_classes>(dataReader.GetString("sunlight"), out returnInfo.Sunlight);
+                Enum.TryParse<temperature_classes>(dataReader.GetString("temperature"), out returnInfo.Temperature);
+                Enum.TryParse<soil_classes>(dataReader.GetString("soil"), out returnInfo.Soil);
+            }
+
+            //Closes connection
+            Close();
+
+            return (returnInfo);
         }
 
         //returns description for a plant 
-        public MySqlDataReader Description(string plantID)
+        public String Description(string plantID)
         {
             //constructing query
             string query = "SELECT description FROM description WHERE plantID = " + plantID + ";";
@@ -96,8 +128,14 @@ namespace db.plants
             //Create a data reader and Execute the command
             MySqlDataReader dataReader = cmd.ExecuteReader();
 
-            //return the MySqlDataReader to be used - may need to switch this after talking to zack
-            return (dataReader);
+            string returnString = string.Empty;
+             
+            while (dataReader.Read())
+            {
+                returnString = dataReader.GetString("description");
+            }
+
+            return (returnString);
         }
 
         //returns friends and enemies given a plant id - return type may need to be changed after talking to Zack
