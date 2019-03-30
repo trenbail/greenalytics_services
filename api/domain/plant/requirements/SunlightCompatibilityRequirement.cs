@@ -21,7 +21,7 @@ namespace api.domain.plant.requirements
             SunlightCompatibilityRequirement plant1_req = plant1.GetRequirement<SunlightCompatibilityRequirement>(typeof(SunlightCompatibilityRequirement));
             SunlightCompatibilityRequirement plant2_req = plant2.GetRequirement<SunlightCompatibilityRequirement>(typeof(SunlightCompatibilityRequirement));
             
-            if((int)plant1_req.sunlightLevel - (int)plant2_req.sunlightLevel >= 2)
+            if(Math.Abs((int)plant1_req.sunlightLevel - (int)plant2_req.sunlightLevel) >= 2)
             {
                 return false;
             }
