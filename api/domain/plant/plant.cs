@@ -7,6 +7,7 @@ namespace api.domain
     {
         public string Name { get; private set; }
         private List<IPlantRequirement> requirements;
+        private string Description;
         private PlantSchedule schedule;
 
         public Plant(string name)
@@ -42,6 +43,22 @@ namespace api.domain
             }
 
             this.requirements.Add(req);
+        }
+        public T GetRequirement<T>(Type requirementType)
+        {
+            foreach(var requirement in this.requirements)
+            {
+                if(requirement.GetType() == requirementType)
+                {
+                    return (T)requirement;
+                }
+            }
+            return null;
+        }
+
+        public void AddDescription(string desc)
+        {
+            this.Description = desc;
         }
     }
 }
