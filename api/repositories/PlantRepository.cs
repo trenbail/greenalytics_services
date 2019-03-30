@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using api.domain;
+using api.domain.plant.requirements;
 
 namespace api.repositories
 {
@@ -10,7 +11,6 @@ namespace api.repositories
 
         public void CreatePlant(Plant plant)
         {
-            throw new NotImplementedException();
         }
 
         public void Delete()
@@ -20,14 +20,26 @@ namespace api.repositories
 
         public Plant GetByName(string name)
         {
+            var plantDB = new db.plants.Plants();
+            var plantID = plantDB.Convert(name);
+            db.plants.PlantInfo plantInfo = plantDB.PlantData(plantID);
+
+            var sunlightRequirement = new SunlightCompatibilityRequirement(plantInfo.Sunlight);
+            //temp req
+            //soil req
+            //rainfall req
+            var plantType = plantInfo.Type;
+            var description = plantDB.Description(plantID);
+
+
             Plant plant = new Plant(name);
-            List<IPlantRequirement> requirements = new List<IPlantRequirement>(); //Get Requirements
+            plant.plantType = plantType;
+            List<IPlantRequirement> requirements = new List<IPlantRequirement> { sunlightRequirement }; //Get Requirements
 
             foreach(IPlantRequirement requirement in requirements)
             {
                 plant.AddRequirement(requirement);
             }
-            string description = ""; //get description
 
             plant.AddDescription(description);
 

@@ -21,7 +21,7 @@ namespace db.plants
         public soil_classes Soil;
     }
 
-    class Plants : Connect
+    public class Plants : Connect
     {
         //Constructor call to base case - selecting 'plants' database
         public Plants() : base("plants") { }
@@ -84,7 +84,7 @@ namespace db.plants
         public PlantInfo PlantData(string plantID)
         {
             //constructing query
-            string query = "SELECT p.name, d.type, d.rainfall, d.temperature, d.humidity, d.sunlight, d.soil FROM masterPlants p, plantData d WHERE p.plantID = d.plantID AND p.plantID = " + plantID + ";";
+            string query = "SELECT p.name, d.type, d.rainfall, d.temperature, d.sunlight, d.soil FROM masterPlants p, plantData d WHERE p.plantID = d.plantID AND p.plantID = " + plantID + ";";
 
             //Open connection
             Open();
@@ -99,11 +99,11 @@ namespace db.plants
 
             while (dataReader.Read())
             {
-                returnInfo.Name = dataReader.GetString("plantName");
+                returnInfo.Name = dataReader.GetString("name");
                 returnInfo.Type = dataReader.GetString("type");
                 returnInfo.Rainfall = dataReader.GetFloat("rainfall");
-                Enum.TryParse<sunlight_classes>(dataReader.GetString("sunlight"), out returnInfo.Sunlight);
                 Enum.TryParse<temperature_classes>(dataReader.GetString("temperature"), out returnInfo.Temperature);
+                Enum.TryParse<sunlight_classes>(dataReader.GetString("sunlight"), out returnInfo.Sunlight);
                 Enum.TryParse<soil_classes>(dataReader.GetString("soil"), out returnInfo.Soil);
             }
 

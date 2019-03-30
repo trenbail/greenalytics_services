@@ -30,7 +30,7 @@ namespace api.Controllers
         public ActionResult<Plant> GetPlantByName(string name)
         {
             var plant = PlantRepository.GetByName(name);
-            if (plant == null)
+            if (plant != null)
             {
                 return plant;
             }
