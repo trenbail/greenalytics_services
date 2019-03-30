@@ -131,7 +131,7 @@ namespace api.Controllers
         }
 
         [HttpPost("plantGroup/{plantGroupName}/add/{plantName}")]
-        public void AddPlantToPlantGroup(string plantGroupName, string plantName)
+        public void AddPlantToPlantGroup(string plantGroupName, string plantName, string accountID)
         {
             if (string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
             {
@@ -149,13 +149,13 @@ namespace api.Controllers
             }
 
             Plant plant = PlantRepository.GetByName(plantName);
-            if (plantGroup == null)
+            if (plant == null)
             {
                 return;
             }
 
             plantGroup.AddPlant(plant);
-            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant);
+            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID);
         }
 
         [HttpPost("plant")]
