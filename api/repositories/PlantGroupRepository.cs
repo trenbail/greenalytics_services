@@ -10,9 +10,10 @@ namespace api.repositories
 {
     public class PlantGroupRepository : IPlantGroupRepository
     {
-        public void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant)
+        public void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant, string userID)
         {
-            throw new NotImplementedException();
+            var groupDB = new db.groups.Groups();
+            groupDB.AddPlant(userID, plantGroup.Id, plant.Name);
         }
 
         public void AddSensor(PlantGroup plantGroup)
@@ -29,7 +30,7 @@ namespace api.repositories
 
         public PlantGroup GetByName(string name)
         {
-            throw new NotImplementedException();
+            return new PlantGroup(name);
         }
 
         public void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)

@@ -6,7 +6,7 @@ using db.plants;
 namespace db.groups
 {
 
-    class Groups : Connect
+    public class Groups : Connect
     {
         //Constructor call to base case - selecting 'u_gardens' database
         public Groups() : base("plants") { }
@@ -17,14 +17,15 @@ namespace db.groups
         //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
-        public void AddPlant(string userID, string gardenID, string plantName)
+        public void AddPlant(string userID, Guid groupID_g, string plantName)
         {
+            string groupID = groupID_g.ToString();
             //converting to plantID - doing this to allow adding by plantName
             Plants tempPlant = new Plants();
             string plantID = tempPlant.Convert(plantName);
 
             //constructing query
-            string query = String.Format("INSERT INTO hasPlants(userID, groupID, plantID) VALUES({0},{1},{2}) ON DUPLICATE KEY UPDATE quantity = quantity + 1", userID, gardenID, plantName);
+            string query = String.Format("INSERT INTO hasPlants(userID, groupID, plantID) VALUES('{0}','{1}',{2}) ON DUPLICATE KEY UPDATE quantity = quantity + 1", userID, groupID, plantID);
 
             //Open connection
             Open();
