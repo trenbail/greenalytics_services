@@ -10,7 +10,7 @@ namespace api.repositories
         void InsertLightData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue);
         void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue);
 
-        void CreatePlantGroup(PlantGroup plantGroup, string userID);
+        void CreatePlantGroup(Garden garden, PlantGroup plantGroup, string userID);
         void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant, string userID);
     }
 }

@@ -117,7 +117,7 @@ namespace api.Controllers
             Garden garden = GardenRepository.GetByName(gardenName);
 
             PlantGroup plantGroup = new PlantGroup(plantGroupName);
-            PlantGroupRepository.CreatePlantGroup(plantGroup, userID); 
+            PlantGroupRepository.CreatePlantGroup(garden, plantGroup, userID); 
 
             garden.AddPlantGroup(plantGroup);
             GardenRepository.AddPlantGroup(garden, plantGroup, userID); //should be update

@@ -23,7 +23,7 @@ namespace api.repositories
             Sensors sensors = new Sensors();
         }
 
-        public void CreatePlantGroup(PlantGroup plantGroup, string userID)
+        public void CreatePlantGroup(Garden garden, PlantGroup plantGroup, string userID)
         {
             throw new NotImplementedException();
         }
