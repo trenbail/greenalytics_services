@@ -28,6 +28,7 @@ namespace api.repositories
             List<IPlantRequirement> requirements = new List<IPlantRequirement>();
             requirements.Add(new SunlightCompatibilityRequirement(plantInfo.Sunlight));
             requirements.Add(new TemperatureCompatibilityRequirement(plantInfo.Temperature));
+            requirements.Add(new WaterCompatibilityRequirement(plantInfo.Rainfall));
 
             //soil req
             //rainfall req
