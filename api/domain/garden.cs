@@ -7,17 +7,17 @@ namespace api.domain
 {
     public class Garden : Entity
     {
-        public Guid AccountId { get; private set; }
+        public string AccountId { get; private set; }
         public string Name {get; private set; }
 
         private List<PlantGroup> PlantGroups{get;}
-        public Garden(string name, Guid accountId)
+        public Garden(string name, string accountId)
         {
             if (name == null || name == String.Empty)
             {
                 throw new System.ArgumentException(nameof(name));
             }
-            if (accountId == Guid.Empty)
+            if (accountId == string.Empty)
             {
                 throw new System.ArgumentException(nameof(accountId));
             }

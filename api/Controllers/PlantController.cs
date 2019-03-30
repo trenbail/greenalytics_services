@@ -38,9 +38,9 @@ namespace api.Controllers
         }
 
         [HttpGet("plantGroup/{name}")]
-        public ActionResult<PlantGroup> GetPlantGroupByName(string name)
+        public ActionResult<PlantGroup> GetPlantGroupByName(string name, string accountID)
         {
-            var plantGroup = PlantGroupRepository.GetByName(name);
+            var plantGroup = PlantGroupRepository.GetByName(name, accountID);
             if (plantGroup != null)
             {
                 return plantGroup;
@@ -48,7 +48,7 @@ namespace api.Controllers
             return NotFound();
         }
 
-        [HttpGet("garden/{name}")]
+        [HttpGet("garden/{name}")] //UNTESTED
         public ActionResult<Garden> GetGardenByName(string name)
         {
             var garden = GardenRepository.GetByName(name);
@@ -59,15 +59,15 @@ namespace api.Controllers
             return NotFound();
         }
 
-        [HttpGet]
+        [HttpGet] //UNTESTED
         public ActionResult<List<Garden>> GetAllGardens(string accountID)
         {
             return GardenRepository.GetAllGardens(accountID);
         }
 
         [HttpGet("incompatibilities")]
-        public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName){
-            var plantGroup = PlantGroupRepository.GetByName(plantGroupName);
+        public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName, string accountID){
+            var plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
             if (plantGroup != null)
             {
                 return NotFound();
@@ -81,104 +81,74 @@ namespace api.Controllers
             return requirementList.ToDictionary(tup => tup.Item1, tup => tup.Item2);
         }
 
-        [HttpGet("statistics")]
         #endregion
 
         #region POST
-        [HttpPost("garden")]
-        public void PostGarden([FromBody] Guid AccountID, string name)
+        [HttpPost("garden/{gardenName}")]
+        public void PostGarden(string gardenName, string userID)
         {
-            Garden garden = new Garden(name, AccountID);
-            if (garden.Id == Guid.Empty || garden.Id == null)
+            if (string.IsNullOrEmpty(gardenName))
             {
-                garden.Id = Guid.NewGuid();
+                throw new ArgumentException("message", nameof(gardenName));
             }
-            if (garden.AccountId == Guid.Empty || garden.Id == null)
+
+            if (userID == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(userID));
             }
-            if (string.IsNullOrEmpty(garden.Name))
-            {
-                return;
-            }
+
+            Garden garden = new Garden(gardenName, userID);
             GardenRepository.CreateGarden(garden);
         }
 
-        [HttpPost("garden/plantGroup")]
-        public void AddPlantGroupToGarden(string gardenName, string plantGroupName)
+        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}]")]
+        public void CreatePlantGroup(string gardenName, string plantGroupName, string userID)
         {
-            if (string.IsNullOrEmpty(gardenName) || string.IsNullOrWhiteSpace(gardenName))
+            if (string.IsNullOrEmpty(gardenName))
             {
-                return;
-            }
-            Garden garden = GardenRepository.GetByName(gardenName);
-            if (garden == null)
-            {
-                return;
+                throw new ArgumentException("message", nameof(gardenName));
             }
 
-            if (string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
+            if (plantGroupName == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(plantGroupName));
             }
-            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName);
-            if (plantGroup == null)
-            {
-                return;
-            }
+
+            Garden garden = GardenRepository.GetByName(gardenName);
+
+            PlantGroup plantGroup = new PlantGroup(plantGroupName);
+            PlantGroupRepository.CreatePlantGroup(garden, plantGroup, userID); 
+
             garden.AddPlantGroup(plantGroup);
-            GardenRepository.AddPlantGroup(garden);
+            GardenRepository.AddPlantGroup(garden, plantGroup, userID); //should be update
         }
 
-        [HttpPost("plantGroup/{plantGroupName}/add/{plantName}")]
-        public void AddPlantToPlantGroup(string plantGroupName, string plantName, string accountID)
+        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}/plant/{plantName}")]
+        public void AddPlantToPlantGroup(string gardenName, string plantGroupName, string plantName, string accountID)
         {
-            if (string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
+            if (string.IsNullOrEmpty(gardenName))
             {
-                return;
-            }
-            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName);
-            if (plantGroup == null)
-            {
-                return;
+                throw new ArgumentException("message", nameof(gardenName));
             }
 
-            if (string.IsNullOrEmpty(plantName) || string.IsNullOrWhiteSpace(plantName))
+            if (string.IsNullOrEmpty(plantGroupName))
             {
-                return;
+                throw new ArgumentException("message", nameof(plantGroupName));
             }
+
+            if (string.IsNullOrEmpty(plantName))
+            {
+                throw new ArgumentException("message", nameof(plantName));
+            }
+
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
 
             Plant plant = PlantRepository.GetByName(plantName);
-            if (plant == null)
-            {
-                return;
-            }
 
             plantGroup.AddPlant(plant);
-            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID);
+            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID); //should be update
         }
 
-        [HttpPost("plant")]
-        public void PostPlant([FromBody] string name)
-        {
-            Plant plant = new Plant(name);
-            if (string.IsNullOrEmpty(plant.Name))
-            {
-                return;
-            }
-            PlantRepository.CreatePlant(plant);
-        }
-
-        [HttpPost("plantGroup")]
-        public void PostPlantGroup([FromBody] string name)
-        {
-            PlantGroup plantGroup = new PlantGroup(name);
-            if (string.IsNullOrEmpty(plantGroup.Name))
-            {
-                return;
-            }
-            PlantGroupRepository.CreatePlantGroup(plantGroup);
-        }
         #endregion
     }
 }

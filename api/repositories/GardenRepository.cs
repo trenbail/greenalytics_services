@@ -8,7 +8,7 @@ namespace api.repositories
 {
     public class GardenRepository : IGardenRepository
     {
-        public void AddPlantGroup(Garden garden)
+        public void AddPlantGroup(Garden garden, PlantGroup plantGroup, string userID)
         {
             throw new NotImplementedException();
         }
@@ -26,6 +26,7 @@ namespace api.repositories
         public Garden GetByName(string name)
         {
             throw new NotImplementedException();
+            //ifnexist throw exception
         }
     }
 }
