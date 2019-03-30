@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO; //used for file reading
+//using System.IO; //used for file reading
 using MySql.Data.MySqlClient;
 using System.Collections.Generic; //used for lists
 using db.connections;
@@ -56,6 +56,7 @@ namespace db.plants
             return returnList[0];
         }
 
+
         //mySQL functions
 
         //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
@@ -80,11 +81,48 @@ namespace db.plants
             return (dataReader);
         }
 
-        //returns friends and enemies given a plant id - return type may need to be changed after talking to Zack
-        public MySqlDataReader FriendsEnemies(string plantID)
+        //returns description for a plant 
+        public MySqlDataReader Description(string plantID)
         {
             //constructing query
-            string query = "SELECT friends, enemies FROM friends_enemies WHERE plantID = " + plantID + ";";
+            string query = "SELECT description FROM description WHERE plantID = " + plantID + ";";
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            //return the MySqlDataReader to be used - may need to switch this after talking to zack
+            return (dataReader);
+        }
+
+        //returns friends and enemies given a plant id - return type may need to be changed after talking to Zack
+        public MySqlDataReader Friends(string plantID)
+        {
+            //constructing query
+            string query = "SELECT friends FROM friends_enemies WHERE plantID = " + plantID + ";";
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            //return the MySqlDataReader to be used - may need to switch this after talking to zack
+            return (dataReader);
+        }
+
+        public MySqlDataReader Enemies(string plantID)
+        {
+            //constructing query
+            string query = "SELECT enemies FROM friends_enemies WHERE plantID = " + plantID + ";";
 
             //Open connection
             Open();

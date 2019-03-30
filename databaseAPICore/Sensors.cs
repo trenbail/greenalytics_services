@@ -25,7 +25,7 @@ namespace db.sensors
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
-            MySqlDataReader newTable = cmd.ExecuteReader();
+            cmd.ExecuteNonQuery();
 
             Close();
         }
@@ -40,7 +40,7 @@ namespace db.sensors
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
-            MySqlDataReader newTable = cmd.ExecuteReader();
+            cmd.ExecuteNonQuery();
 
             Close();
         }
@@ -56,7 +56,7 @@ namespace db.sensors
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
-            MySqlDataReader newTable = cmd.ExecuteReader();
+            cmd.ExecuteNonQuery();
 
             Close();
         }
