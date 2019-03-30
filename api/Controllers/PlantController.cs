@@ -59,6 +59,12 @@ namespace api.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        public ActionResult<List<Garden>> GetAllGardens(string accountID)
+        {
+            return GardenRepository.GetAllGardens(accountID);
+        }
+
         [HttpGet("incompatibilities")]
         public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName){
             var plantGroup = PlantGroupRepository.GetByName(plantGroupName);

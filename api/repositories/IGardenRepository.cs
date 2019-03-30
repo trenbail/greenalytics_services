@@ -1,4 +1,6 @@
-﻿using api.domain;
+﻿using System.Collections.Generic;
+using api.domain;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.repositories
 {
@@ -7,5 +9,6 @@ namespace api.repositories
         Garden GetByName(string name);
         void CreateGarden(Garden garden);
         void Update(Garden garden);
+        ActionResult<List<Garden>> GetAllGardens(string accountID);
     }
 }

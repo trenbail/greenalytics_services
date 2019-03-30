@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using api.domain;
 using db.sensors;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.repositories
 {
@@ -38,6 +40,11 @@ namespace api.repositories
         {
             Sensors sensor = new Sensors();
             sensor.CreateTable("xoxo");
+        }
+
+        public ActionResult<List<Garden>> GetAllGardens(string accountID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
