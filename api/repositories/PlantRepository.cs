@@ -6,11 +6,6 @@ namespace api.repositories
 {
     public class PlantRepository : IPlantRepository
     {
-        public PlantRepository(IDbConnection conn)
-        {
-
-        }
-
         public void Create()
         {
             throw new NotImplementedException();
