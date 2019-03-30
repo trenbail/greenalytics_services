@@ -22,8 +22,9 @@ namespace api.domain.plant.requirements
             
             if((int)plant1_req.sunlightLevel - (int)plant2_req.sunlightLevel >= 2)
             {
-
+                return false;
             }
+            return true;
         }
     }
 }
