@@ -112,17 +112,17 @@ namespace api.Controllers
                 return;
             }
             Garden garden = GardenRepository.GetByName(gardenName);
-            if(garden == null)
+            if (garden == null)
             {
                 return;
             }
 
-            if(string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
+            if (string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
             {
                 return;
             }
             PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName);
-            if(plantGroup == null)
+            if (plantGroup == null)
             {
                 return;
             }
