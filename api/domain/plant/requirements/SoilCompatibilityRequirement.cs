@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace api.domain.plant.requirements
 {
-    
-    public class TemperatureCompatibilityRequirement : IPlantRequirement
+
+    public class SoilCompatibilityRequirement : IPlantRequirement
     {
-        bool IPlantRequirement.Verify(Plant plant1, Plant plant2)
+        public bool Verify(Plant plant1, Plant plant2)
         {
             throw new NotImplementedException();
         }
