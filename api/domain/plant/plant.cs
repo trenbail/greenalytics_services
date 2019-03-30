@@ -53,7 +53,7 @@ namespace api.domain
                     return (T)requirement;
                 }
             }
-            return null;
+            return default(T);
         }
 
         public void AddDescription(string desc)
