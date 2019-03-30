@@ -16,6 +16,21 @@ namespace db.users
         //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
+        //adds new user
+        public void Add(int id, string name, string password)
+        {
+            //constructing query
+            string query = "INSERT INTO userInfo VALUES (" + id + ", \"" + name + "\", \"" + password + "\");";
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
 
     }
 
