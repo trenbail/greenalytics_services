@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api")]
+    [Route("api/{accountID}")]
     [ApiController]
     public class GreenalyticsController : ControllerBase
     {
@@ -76,7 +76,6 @@ namespace api.Controllers
         }
 
         [HttpGet("statistics")]
-        
         #endregion
 
         #region POST
