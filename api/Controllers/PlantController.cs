@@ -38,9 +38,9 @@ namespace api.Controllers
         }
 
         [HttpGet("plantGroup/{name}")]
-        public ActionResult<PlantGroup> GetPlantGroupByName(string name)
+        public ActionResult<PlantGroup> GetPlantGroupByName(string name, string accountID)
         {
-            var plantGroup = PlantGroupRepository.GetByName(name);
+            var plantGroup = PlantGroupRepository.GetByName(name, accountID);
             if (plantGroup != null)
             {
                 return plantGroup;
@@ -48,7 +48,7 @@ namespace api.Controllers
             return NotFound();
         }
 
-        [HttpGet("garden/{name}")]
+        [HttpGet("garden/{name}")] //UNTESTED
         public ActionResult<Garden> GetGardenByName(string name)
         {
             var garden = GardenRepository.GetByName(name);
@@ -59,15 +59,15 @@ namespace api.Controllers
             return NotFound();
         }
 
-        [HttpGet]
+        [HttpGet] //UNTESTED
         public ActionResult<List<Garden>> GetAllGardens(string accountID)
         {
             return GardenRepository.GetAllGardens(accountID);
         }
 
         [HttpGet("incompatibilities")]
-        public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName){
-            var plantGroup = PlantGroupRepository.GetByName(plantGroupName);
+        public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName, string accountID){
+            var plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
             if (plantGroup != null)
             {
                 return NotFound();
@@ -81,76 +81,74 @@ namespace api.Controllers
             return requirementList.ToDictionary(tup => tup.Item1, tup => tup.Item2);
         }
 
-        [HttpGet("statistics")]
         #endregion
 
         #region POST
-        [HttpPost("garden")]
-        public void PostGarden([FromBody] Guid AccountID, string name)
+        [HttpPost("garden/{gardenName}")]
+        public void PostGarden(string gardenName, string userID)
         {
-            Garden garden = new Garden(name, AccountID);
-            if (garden.Id == Guid.Empty || garden.Id == null)
+            if (string.IsNullOrEmpty(gardenName))
             {
-                garden.Id = Guid.NewGuid();
+                throw new ArgumentException("message", nameof(gardenName));
             }
-            if (garden.AccountId == Guid.Empty || garden.Id == null)
+
+            if (userID == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(userID));
             }
-            if (string.IsNullOrEmpty(garden.Name))
-            {
-                return;
-            }
+
+            Garden garden = new Garden(gardenName, userID);
             GardenRepository.CreateGarden(garden);
         }
 
-        [HttpPost("garden/plantGroup")]
-        public void AddPlantGroupToGarden(string gardenName, string plantGroupName)
+        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}")]
+        public void CreatePlantGroup(string gardenName, string plantGroupName, string userID)
         {
-            if (string.IsNullOrEmpty(gardenName) || string.IsNullOrWhiteSpace(gardenName))
+            if (string.IsNullOrEmpty(gardenName))
             {
-                return;
+                throw new ArgumentException("message", nameof(gardenName));
             }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
             Garden garden = GardenRepository.GetByName(gardenName);
-            if (garden == null)
-            {
-                return;
-            }
 
-            if (string.IsNullOrEmpty(plantGroupName) || string.IsNullOrWhiteSpace(plantGroupName))
-            {
-                return;
-            }
-            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName);
-            if (plantGroup == null)
-            {
-                return;
-            }
+            PlantGroup plantGroup = new PlantGroup(plantGroupName);
+            PlantGroupRepository.CreatePlantGroup(garden, plantGroup, userID); 
+
             garden.AddPlantGroup(plantGroup);
-            GardenRepository.Update(garden);
+            GardenRepository.AddPlantGroup(garden, plantGroup, userID); //should be update
         }
 
-        [HttpPost("plant")]
-        public void PostPlant([FromBody] string name)
+        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}/plant/{plantName}")]
+        public void AddPlantToPlantGroup(string gardenName, string plantGroupName, string plantName, string accountID)
         {
-            Plant plant = new Plant(name);
-            if (string.IsNullOrEmpty(plant.Name))
+            if (string.IsNullOrEmpty(gardenName))
             {
-                return;
+                throw new ArgumentException("message", nameof(gardenName));
             }
-            PlantRepository.CreatePlant(plant);
+
+            if (string.IsNullOrEmpty(plantGroupName))
+            {
+                throw new ArgumentException("message", nameof(plantGroupName));
+            }
+
+            if (string.IsNullOrEmpty(plantName))
+            {
+                throw new ArgumentException("message", nameof(plantName));
+            }
+
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
+
+            Plant plant = PlantRepository.GetByName(plantName);
+
+            plantGroup.AddPlant(plant);
+            PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID); //should be update
         }
 
-        [HttpPost("plantGroup")]
-        public void PostPlantGroup([FromBody] string name)
-        {
-            PlantGroup plantGroup = new PlantGroup(name);
-            if (string.IsNullOrEmpty(plantGroup.Name))
-            {
-                return;
-            }
-            PlantGroupRepository.CreatePlantGroup(plantGroup);
-        }
         #endregion
     }
 }
