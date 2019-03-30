@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO; //used for file reading
+//using System.IO; //used for file reading
 using MySql.Data.MySqlClient;
 using System.Collections.Generic; //used for lists
 using db.connections;
