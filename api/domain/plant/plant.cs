@@ -7,8 +7,9 @@ namespace api.domain
     {
         public string Name { get; private set; }
         private List<IPlantRequirement> requirements;
-        private string Description;
+        public string Description;
         private PlantSchedule schedule;
+        public string plantType;
 
         public Plant(string name)
         {
