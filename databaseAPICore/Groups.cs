@@ -91,7 +91,7 @@ namespace db.groups
         }
 
         //This function returns a list of plant names inside a group
-        public List<string> ListGroup(string userID, string groupName)
+        public List<string> ListPlants(string userID, string groupName)
         {
             //constructing query
             string groupID = Convert(userID, groupName);

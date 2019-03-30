@@ -10,6 +10,12 @@ namespace api.repositories
 {
     public class PlantGroupRepository : IPlantGroupRepository
     {
+        public IPlantRepository PlantRepo { get; }
+        public PlantGroupRepository(IPlantRepository plantRepo)
+        {
+            PlantRepo = plantRepo;
+        }
+
         public void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant, string userID)
         {
             var groupDB = new db.groups.Groups();
@@ -25,14 +31,25 @@ namespace api.repositories
 
         public void CreatePlantGroup(Garden garden, PlantGroup plantGroup, string userID)
         {
-            throw new NotImplementedException();
+            var groupDB = new db.groups.Groups();
+            groupDB.AddGroup(userID, garden.Name, plantGroup.Id, plantGroup.Name);
+            return;
         }
 
         public PlantGroup GetByName(string name, string userID)
         {
             var plantGroup = new PlantGroup(name);
+
             var groupDB = new db.groups.Groups();
-            //ifndef throw
+            List<string> plantList = groupDB.ListPlants(userID, name);
+            if(plantList == null)
+            {
+                throw new Exception();
+            }
+            plantList.Select(plantName => PlantRepo.GetByName(plantName))
+                .ToList()
+                .ForEach(plant => plantGroup.AddPlant(plant));
+            //TODO: Add Hardware
             return plantGroup;
         }
 

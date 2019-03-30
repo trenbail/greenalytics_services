@@ -10,7 +10,6 @@ namespace api.repositories
     {
         public void AddPlantGroup(Garden garden, PlantGroup plantGroup, string userID)
         {
-            throw new NotImplementedException();
         }
 
         public void CreateGarden(Garden garden)
