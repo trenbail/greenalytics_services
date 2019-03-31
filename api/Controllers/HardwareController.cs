@@ -23,24 +23,30 @@ namespace api.Controllers
         //TODO: add get plant group to hardware
 
         #region POST
-        [HttpPost("plantgroup/hardware/light")]
+        [HttpPost("/hardware/light")]
         public void PostLightSensor(JObject data)
         {
-            var HardwareMac = data["HardwareMAC"].ToString();
+            var HardwareMAC = data["HardwareMAC"].ToString();
             var UTCTime = Convert.ToInt64(data["UTCTime"].ToString());
             var SensorValue = Convert.ToInt32(data["SensorValue"].ToString());
-            HardwareRepository.InsertLightData(HardwareMac, UTCTime,SensorValue);
+            HardwareRepository.InsertLightData(HardwareMAC, UTCTime,SensorValue);
         }
 
-        [HttpPost("/plantGroup/hardware/temperature")]
-        public void PostTemperatureSensor(string HardwareMAC, int UTCTime, int SensorValue)
+        [HttpPost("/hardware/temperature")]
+        public void PostTemperatureSensor(JObject data)
         {
+            var HardwareMAC = data["HardwareMAC"].ToString();
+            var UTCTime = Convert.ToInt64(data["UTCTime"].ToString());
+            var SensorValue = Convert.ToInt32(data["SensorValue"].ToString());
             HardwareRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorValue);
         }
 
-        [HttpPost("/plantGroup/hardware/humidity")]
-        public void PostHumidity(string HardwareMAC, int UTCTime, int SensorValue)
+        [HttpPost("/hardware/humidity")]
+        public void PostHumidity(JObject data)
         {
+            var HardwareMAC = data["HardwareMAC"].ToString();
+            var UTCTime = Convert.ToInt64(data["UTCTime"].ToString());
+            var SensorValue = Convert.ToInt32(data["SensorValue"].ToString());
             HardwareRepository.InsertHumidityData(HardwareMAC, UTCTime, SensorValue);
         }
 
