@@ -46,6 +46,37 @@ namespace db.groups
             return returnString;
         }
 
+        public bool Exists(string userID, string groupName)
+        {
+            //Converting gardenName to gardenID
+            string groupID = Convert(userID, groupName);
+
+            string query = string.Format("SELECT * FROM hasGroups WHERE userID = '{0}' AND groupID = '{1}'", userID, groupID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            bool returnBool = dataReader.HasRows;
+
+            Close();
+
+            if (returnBool == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         public void AddGroup(string userID, string gardenName, Guid groupID_g, string groupName)
         {
             //convert garden name to gardenID
