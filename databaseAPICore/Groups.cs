@@ -20,6 +20,7 @@ namespace db.groups
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
         //fix - include garden ID to so group names can be shared throughout gardens
+        //This has a bug in it
         public string Convert(string userID, string name)
         {
 
