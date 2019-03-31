@@ -12,47 +12,32 @@ namespace api.Controllers
     [ApiController]
     public class HardwareController : ControllerBase
     {
-        public IPlantGroupRepository PlantGroupRepository { get; }
+        public IHardwareRepository HardwareRepository { get; }
 
-        public HardwareController(IPlantGroupRepository plantGroupRepository)
+        public HardwareController(IHardwareRepository hardwareRepository)
         {
-            PlantGroupRepository = plantGroupRepository;
+            HardwareRepository = hardwareRepository;
         }
 
         //TODO: add get plant group to hardware
 
         #region POST
         [HttpPost("plantgroup/hardware/light")]
-        public void PostLightSensor(Guid HardwareMAC, int UTCTime ,int SensorValue)
+        public void PostLightSensor(string HardwareMAC, int UTCTime ,int SensorValue)
         {
-            //TODO: Assign dynamic id for hardware
-            int SensorID = 0;
-
-            PlantGroupRepository.InsertLightData(HardwareMAC,UTCTime,SensorID,SensorValue);
-
+            HardwareRepository.InsertLightData(HardwareMAC,UTCTime,SensorValue);
         }
 
         [HttpPost("/plantGroup/hardware/temperature")]
-        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, int SensorValue)
+        public void PostTemperatureSensor(string HardwareMAC, int UTCTime, int SensorValue)
         {
-            //TODO: Assign dynamic id for hardware
-            int SensorID = 0;
-
-            PlantGroupRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorID, SensorValue);
+            HardwareRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorValue);
         }
 
         [HttpPost("/plantGroup/hardware/humidity")]
-        public void PostHumidity(Guid HardwareMAC, int UTCTime, int SensorValue)
+        public void PostHumidity(string HardwareMAC, int UTCTime, int SensorValue)
         {
-            //TODO: Assign dynamic id for hardware
-            int SensorID = 0;
-
-            PlantGroupRepository.InsertHumidityData(HardwareMAC, UTCTime, SensorID, SensorValue);
-        }
-        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime)
-        {
-            //TODO: Assign static sensorType
-            //TODO: Assign static id for hardware
+            HardwareRepository.InsertHumidityData(HardwareMAC, UTCTime, SensorValue);
         }
 
         #endregion

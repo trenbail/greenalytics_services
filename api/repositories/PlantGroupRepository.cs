@@ -52,20 +52,5 @@ namespace api.repositories
             //TODO: Add Hardware
             return plantGroup;
         }
-
-        public void InsertHumidityData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertLightData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertTemperatureData(Guid hardwareMAC, int UTCTime, int SensorID, int SensorValue)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
