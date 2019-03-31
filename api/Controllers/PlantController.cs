@@ -62,7 +62,9 @@ namespace api.Controllers
         [HttpGet] //UNTESTED
         public ActionResult<List<Garden>> GetAllGardens(string accountID)
         {
-            return GardenRepository.GetAllGardens(accountID);
+            List<Garden> gardens = new List<Garden>();
+            gardens = GardenRepository.GetAllGardens(accountID);
+            return gardens;
         }
 
         [HttpGet("incompatibilities/plantGroup/{plantGroupName}/plant/{plantName}")]
