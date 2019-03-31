@@ -80,7 +80,7 @@ namespace db.plants
             return SelectAll(tableName); //todo fill out
         }
 
-        //returns plantInfo struct
+        //returns plantInfo struct given plantID - this should be changed to accept name
         public PlantInfo PlantData(string plantID)
         {
             //constructing query
@@ -113,7 +113,7 @@ namespace db.plants
             return (returnInfo);
         }
 
-        //returns description for a plant 
+        //returns description for a plant - this should be changed to accept name
         public String Description(string plantID)
         {
             //constructing query
@@ -138,7 +138,7 @@ namespace db.plants
             return (returnString);
         }
 
-        //returns friends and enemies given a plant id - return type may need to be changed after talking to Zack
+        //returns friends given a plant id - this should be changed to accept name
         public MySqlDataReader Friends(string plantID)
         {
             //constructing query
@@ -157,6 +157,7 @@ namespace db.plants
             return (dataReader);
         }
 
+        //returns enemies given a plant id - this should be changed to accept name
         public MySqlDataReader Enemies(string plantID)
         {
             //constructing query
