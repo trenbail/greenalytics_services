@@ -22,13 +22,9 @@ namespace api.Controllers
         //TODO: add get plant group to hardware
 
         #region POST
-        [HttpPost("plantgroup/{plantgroupname}/hardware")]
-        public void PostLightSensor(Guid HardwareMAC, int UTCTime ,int SensorValue, string plantgroupname)
+        [HttpPost("plantgroup/hardware/light")]
+        public void PostLightSensor(Guid HardwareMAC, int UTCTime ,int SensorValue)
         {
-            if (String.IsNullOrEmpty(plantgroupname))
-            {
-                throw new System.ArgumentNullException(nameof(plantgroupname));
-            }
             //TODO: Assign dynamic id for hardware
             int SensorID = 0;
 
@@ -36,8 +32,8 @@ namespace api.Controllers
 
         }
 
-        [HttpPost("/plantGroup/hardware")]
-        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, int SensorValue, string plantgroupname)
+        [HttpPost("/plantGroup/hardware/temperature")]
+        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, int SensorValue)
         {
             //TODO: Assign dynamic id for hardware
             int SensorID = 0;
@@ -45,15 +41,15 @@ namespace api.Controllers
             PlantGroupRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorID, SensorValue);
         }
 
-        [HttpPost("/plantGroup/hardware")]
-        public void PostHumidity(Guid HardwareMAC, int UTCTime, int SensorValue, string plantgroupname)
+        [HttpPost("/plantGroup/hardware/humidity")]
+        public void PostHumidity(Guid HardwareMAC, int UTCTime, int SensorValue)
         {
             //TODO: Assign dynamic id for hardware
             int SensorID = 0;
 
             PlantGroupRepository.InsertHumidityData(HardwareMAC, UTCTime, SensorID, SensorValue);
         }
-        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime, string plantgroupname)
+        public void PostTemperatureSensor(Guid HardwareMAC, int UTCTime)
         {
             //TODO: Assign static sensorType
             //TODO: Assign static id for hardware
