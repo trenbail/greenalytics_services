@@ -45,7 +45,37 @@ namespace db.gardens
             return returnString;
         }
 
-        
+        public bool Exists(string userID, string gardenName)
+        {
+            //Converting gardenName to gardenID
+            string gardenID = Convert(userID, gardenName);
+
+            string query = string.Format("SELECT * FROM hasGardens WHERE userID = '{0}' AND gardenID = '{1}'",userID, gardenID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            bool returnBool = dataReader.HasRows;
+
+            Close();
+
+            if (returnBool == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+    
+        }
+
         public void AddGarden(string userID, Guid gardenID_g, string gardenName)
         {
 
@@ -95,6 +125,7 @@ namespace db.gardens
         public List<string> ListGroups(string userID, string gardenName)
         {
 
+            //Converting gardenName to gardenID
             string gardenID = Convert(userID, gardenName);
             //constructing query
             string query = String.Format("SELECT groupName FROM hasGroups WHERE userID = '{0}' AND gardenID = '{1}';", userID, gardenID);
