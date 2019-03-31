@@ -30,7 +30,7 @@ namespace api.repositories
         {
             string SensorType = "temperature";
             Sensors TemperatureSensor = new Sensors();
-            Sensors.Insert(HardwareMAC, UTCTime, SensorType, SensorValue);
+            TemperatureSensor.Insert(HardwareMAC, UTCTime, SensorType, SensorValue);
         }
     }
 }
