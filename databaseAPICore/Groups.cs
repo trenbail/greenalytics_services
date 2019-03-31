@@ -197,5 +197,37 @@ namespace db.groups
             return (returnList);
         }
 
+        public List<string> ListAllPlants(string userID)
+        {
+            //constructing query
+            string query = String.Format("SELECT p.name FROM masterPlants p, hasPlants h WHERE p.plantID = h.plantID AND userID = '{0}';", userID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<string> returnList = new List<string>();
+            string temp;
+
+            while (dataReader.Read())
+            {
+                //stores the current plant name
+                temp = dataReader.GetString("name");
+                //If this plant is not in the return list
+                if(!returnList.Contains(temp))
+                {
+                    returnList.Add(temp);
+                }
+            }
+
+            Close();
+
+            return (returnList);
+        }
     }
 }
