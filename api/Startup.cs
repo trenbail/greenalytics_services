@@ -30,6 +30,7 @@ namespace api
             services.AddSingleton<IGardenRepository, GardenRepository>();
             services.AddSingleton<IPlantGroupRepository, PlantGroupRepository>();
             services.AddSingleton<IPlantRepository, PlantRepository>();
+            services.AddSingleton<IHardwareRepository, HardwareRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
