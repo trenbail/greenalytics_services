@@ -118,5 +118,6 @@ namespace db.groups
             return (returnList);
         }
 
+        //TODO: list all plants for a user
     }
 }
