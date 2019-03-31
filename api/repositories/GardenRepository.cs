@@ -28,9 +28,12 @@ namespace api.repositories
             gardenDB.AddGarden(userID, garden.Id, garden.Name);
         }
 
-        public ActionResult<List<Garden>> GetAllGardens(string accountID)
+        public List<Garden> GetAllGardens(string accountID)
         {
-            throw new NotImplementedException();
+            Gardens gardenDB = new Gardens();
+            List<string> gardenNames = gardenDB.ListGardens(accountID);
+            List<Garden> gardens = gardenNames.Select(name => GetByName(accountID, accountID)).ToList();
+            return gardens;
         }
 
        

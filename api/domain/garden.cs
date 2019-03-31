@@ -10,7 +10,7 @@ namespace api.domain
         public string AccountId { get; private set; }
         public string Name {get; private set; }
 
-        private List<PlantGroup> PlantGroups{get;}
+        public List<PlantGroup> PlantGroups{get;}
         public Garden(string name, string accountId)
         {
             if (name == null || name == String.Empty)
