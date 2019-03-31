@@ -19,7 +19,6 @@ namespace api.repositories
 
         public void AddPlantGroup(Garden garden, PlantGroup plantGroup, string userID)
         {
-            //
         }
 
         public void CreateGarden(Garden garden, string userID)

@@ -31,7 +31,6 @@ namespace api.repositories
             requirements.Add(new WaterCompatibilityRequirement(plantInfo.Rainfall));
 
             //soil req
-            //rainfall req
             var plantType = plantInfo.Type;
             var description = plantDB.Description(plantID);
 
