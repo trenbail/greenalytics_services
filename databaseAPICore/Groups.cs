@@ -47,6 +47,7 @@ namespace db.groups
             return returnString;
         }
 
+        //Checks if a group name exists for a user and returns a bool 
         public bool Exists(string userID, string groupName)
         {
             //Converting gardenName to gardenID
@@ -78,6 +79,7 @@ namespace db.groups
 
         }
 
+        //Adds a hardware given the hardware ID and the gardengroup name for it to be added to
         public void AddHardware(string userID, string groupName, string MACaddress)
         {
             string groupID = Convert(userID, groupName);
@@ -95,7 +97,7 @@ namespace db.groups
 
         }
 
-        //TODO: return hardwareID given a gardenName and userID
+        //Returns a string hardwareID given a garden groupName
         public string GetHardwareID(string userID, string groupName)
         {
             //convert groupName into groupID
@@ -125,6 +127,7 @@ namespace db.groups
             return (returnString);
         }
 
+        //Adds a plant group to a user given the userID and gardenName
         public void AddGroup(string userID, string gardenName, Guid groupID_g, string groupName)
         {
             //convert garden name to gardenID
@@ -197,6 +200,7 @@ namespace db.groups
             return (returnList);
         }
 
+        //This function returns a list of all plants a user has - duplicates removed
         public List<string> ListAllPlants(string userID)
         {
             //constructing query
