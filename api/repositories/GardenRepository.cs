@@ -32,7 +32,7 @@ namespace api.repositories
         {
             Gardens gardenDB = new Gardens();
             List<string> gardenNames = gardenDB.ListGardens(accountID);
-            List<Garden> gardens = gardenNames.Select(name => GetByName(accountID, accountID)).ToList();
+            List<Garden> gardens = gardenNames.Select(name => GetByName(name, accountID)).ToList();
             return gardens;
         }
 
