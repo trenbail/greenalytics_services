@@ -23,7 +23,7 @@ namespace api.Controllers
         //TODO: add get plant group to hardware
 
         #region POST
-        [HttpPost("/hardware/light")]
+        [HttpPost("hardware/light")]
         public void PostLightSensor(JObject data)
         {
             var HardwareMAC = data["HardwareMAC"].ToString();
@@ -32,7 +32,7 @@ namespace api.Controllers
             HardwareRepository.InsertLightData(HardwareMAC, UTCTime,SensorValue);
         }
 
-        [HttpPost("/hardware/temperature")]
+        [HttpPost("hardware/temperature")]
         public void PostTemperatureSensor(JObject data)
         {
             var HardwareMAC = data["HardwareMAC"].ToString();
@@ -41,7 +41,7 @@ namespace api.Controllers
             HardwareRepository.InsertTemperatureData(HardwareMAC, UTCTime, SensorValue);
         }
 
-        [HttpPost("/hardware/humidity")]
+        [HttpPost("hardware/humidity")]
         public void PostHumidity(JObject data)
         {
             var HardwareMAC = data["HardwareMAC"].ToString();
