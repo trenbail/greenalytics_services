@@ -142,7 +142,7 @@ namespace db.plants
         public MySqlDataReader Friends(string plantID)
         {
             //constructing query
-            string query = "SELECT friends FROM friends_enemies WHERE plantID = " + plantID + ";";
+            string query = "SELECT friends FROM friends WHERE plantID = " + plantID + ";";
 
             //Open connection
             Open();
@@ -160,7 +160,7 @@ namespace db.plants
         public MySqlDataReader Enemies(string plantID)
         {
             //constructing query
-            string query = "SELECT enemies FROM friends_enemies WHERE plantID = " + plantID + ";";
+            string query = "SELECT enemies FROM enemies WHERE plantID = " + plantID + ";";
 
             //Open connection
             Open();
