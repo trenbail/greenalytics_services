@@ -7,8 +7,8 @@ using db.connections;
 namespace db.plants
 {
 
+    public enum temperature_classes { low, med_low, med, med_high, high }
     public enum soil_classes { low, med, high } //This may need to change because I am unsure how we will categorize soil
-    public enum temperature_classes { low, med, med_high, high }
     public enum sunlight_classes { low, med_low, med, med_high, high }
 
     public struct PlantInfo

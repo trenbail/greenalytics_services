@@ -16,6 +16,11 @@ namespace api.domain.plant.requirements
             this.temperature_Classes = temperature_Classes;
         }
 
+        public string TypeOfReq()
+        {
+            return "TEMPERATURE";
+        }
+
         bool IPlantRequirement.Verify(Plant plant1, Plant plant2)
         {
             var plant1_req = plant1.GetRequirement<TemperatureCompatibilityRequirement>(typeof(TemperatureCompatibilityRequirement));

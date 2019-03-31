@@ -8,7 +8,7 @@ namespace api.domain.plant.requirements
     public class WaterCompatibilityRequirement : IPlantRequirement
     {
         float range = 0.2f;
-        float quantity;
+        public float quantity;
 
         public WaterCompatibilityRequirement(float quantity)
         {
@@ -29,6 +29,11 @@ namespace api.domain.plant.requirements
                 return false;
             }
             return true;
+        }
+
+        public string TypeOfReq()
+        {
+            return "WATER";
         }
     }
 }
