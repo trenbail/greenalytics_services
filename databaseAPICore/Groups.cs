@@ -19,6 +19,7 @@ namespace db.groups
         //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
+        //fix - include garden ID to so group names can be shared throughout gardens
         public string Convert(string userID, string name)
         {
 
@@ -74,6 +75,23 @@ namespace db.groups
             {
                 return false;
             }
+
+        }
+
+        public void AddHardware(string userID, string groupName, string MACaddress)
+        {
+            string groupID = Convert(userID, groupName);
+
+            string query = String.Format("INSERT INTO hasHardware VALUES('{0}','{1}')", MACaddress, groupID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.ExecuteNonQuery();
+
+            Close();
 
         }
 
