@@ -95,6 +95,36 @@ namespace db.groups
 
         }
 
+        //TODO: return hardwareID given a gardenName and userID
+        public string GetHardwareID(string userID, string groupName)
+        {
+            //convert groupName into groupID
+            string groupID = Convert(userID, groupName);
+
+            //construct query
+            string query = String.Format("SELECT hardwareID FROM hasHardware WHERE groupID = '{0}';", groupID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            string returnString = string.Empty;
+
+            while (dataReader.Read())
+            {
+                returnString = dataReader.GetString("hardwareID");
+            }
+
+            Close();
+
+            return (returnString);
+        }
+
         public void AddGroup(string userID, string gardenName, Guid groupID_g, string groupName)
         {
             //convert garden name to gardenID
@@ -167,6 +197,5 @@ namespace db.groups
             return (returnList);
         }
 
-        //TODO: list all plants for a user
     }
 }
