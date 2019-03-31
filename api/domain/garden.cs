@@ -24,6 +24,7 @@ namespace api.domain
             this.Name = name;
             this.Id = Guid.NewGuid();
             this.AccountId = AccountId;
+            this.PlantGroups = new List<PlantGroup>();
         }
 
         public void AddPlantGroup(PlantGroup plantGroup)

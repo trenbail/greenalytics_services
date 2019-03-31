@@ -95,7 +95,7 @@ namespace db.groups
         {
             //constructing query
             string groupID = Convert(userID, groupName);
-            string query = String.Format("SELECT p.name FROM masterPlants p, hasPlants h WHERE p.plantID = h.plantID AND userID = '{0}';", groupID);
+            string query = String.Format("SELECT p.name FROM masterPlants p, hasPlants h WHERE p.plantID = h.plantID AND groupID = '{0}';", groupID);
 
             //Open connection
             Open();
