@@ -19,7 +19,7 @@ namespace api.repositories
 
         }
 
-        public void InsertLightData(string HardwareMAC, int UTCTime, int SensorValue)
+        public void InsertLightData(string HardwareMAC, long UTCTime, int SensorValue)
         {
             string SensorType = "light";
             Sensors LightSensor = new Sensors();

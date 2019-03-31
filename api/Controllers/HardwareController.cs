@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.domain;
 using api.repositories;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace api.Controllers
 {
@@ -23,9 +24,12 @@ namespace api.Controllers
 
         #region POST
         [HttpPost("plantgroup/hardware/light")]
-        public void PostLightSensor(string HardwareMAC, int UTCTime ,int SensorValue)
+        public void PostLightSensor(JObject data)
         {
-            HardwareRepository.InsertLightData(HardwareMAC,UTCTime,SensorValue);
+            var HardwareMac = data["HardwareMAC"].ToString();
+            var UTCTime = Convert.ToInt64(data["UTCTime"].ToString());
+            var SensorValue = Convert.ToInt32(data["SensorValue"].ToString());
+            HardwareRepository.InsertLightData(HardwareMac, UTCTime,SensorValue);
         }
 
         [HttpPost("/plantGroup/hardware/temperature")]
