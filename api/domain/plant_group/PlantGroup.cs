@@ -8,7 +8,7 @@ namespace api.domain
     {
         public string Name { get; private set; }
 
-        private List<Plant> Plants;
+        public List<Plant> Plants;
         private Hardware Hardware;
         private List<IPlantGroupStat> statistics;
 
