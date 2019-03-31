@@ -1,6 +1,7 @@
 ﻿using System;
 using db.connections;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace db.gardens
 {
@@ -16,6 +17,7 @@ namespace db.gardens
         //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
+        //returnd gardenID
         public string Convert(string userID, string name)
         {
        
@@ -43,5 +45,110 @@ namespace db.gardens
             return returnString;
         }
 
+        public bool Exists(string userID, string gardenName)
+        {
+            //Converting gardenName to gardenID
+            string gardenID = Convert(userID, gardenName);
+
+            string query = string.Format("SELECT * FROM hasGardens WHERE userID = '{0}' AND gardenID = '{1}'",userID, gardenID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            bool returnBool = dataReader.HasRows;
+
+            Close();
+
+            if (returnBool == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+    
+        }
+
+        public void AddGarden(string userID, Guid gardenID_g, string gardenName)
+        {
+
+            //convert gardenID_g to string
+            string gardenID = gardenID_g.ToString();
+
+            //constructing query
+            string query = String.Format("INSERT INTO hasGardens VALUES('{0}','{1}','{2}');", userID, gardenID, gardenName);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
+        public List<string> ListGardens(string userID)
+        {
+
+            //constructing query
+            string query = String.Format("SELECT gardenName FROM hasGardens WHERE userID = '{0}';", userID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<string> returnList = new List<string>();
+
+            while (dataReader.Read())
+            {
+                returnList.Add(dataReader.GetString("gardenName"));
+            }
+
+            Close();
+
+            return (returnList);
+        }
+
+        public List<string> ListGroups(string userID, string gardenName)
+        {
+
+            //Converting gardenName to gardenID
+            string gardenID = Convert(userID, gardenName);
+            //constructing query
+            string query = String.Format("SELECT groupName FROM hasGroups WHERE userID = '{0}' AND gardenID = '{1}';", userID, gardenID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<string> returnList = new List<string>();
+
+            while (dataReader.Read())
+            {
+                returnList.Add(dataReader.GetString("groupName"));
+            }
+
+            Close();
+
+            return (returnList);
+        }
     }
 }

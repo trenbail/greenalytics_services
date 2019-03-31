@@ -49,9 +49,9 @@ namespace api.Controllers
         }
 
         [HttpGet("garden/{name}")] //UNTESTED
-        public ActionResult<Garden> GetGardenByName(string name)
+        public ActionResult<Garden> GetGardenByName(string name, string accountID)
         {
-            var garden = GardenRepository.GetByName(name);
+            var garden = GardenRepository.GetByName(name, accountID);
             if (garden != null)
             {
                 return garden;
@@ -85,24 +85,24 @@ namespace api.Controllers
 
         #region POST
         [HttpPost("garden/{gardenName}")]
-        public void PostGarden(string gardenName, string userID)
+        public void PostGarden(string accountID, string gardenName)
         {
             if (string.IsNullOrEmpty(gardenName))
             {
                 throw new ArgumentException("message", nameof(gardenName));
             }
 
-            if (userID == null)
+            if (accountID == null)
             {
-                throw new ArgumentNullException(nameof(userID));
+                throw new ArgumentNullException(nameof(accountID));
             }
 
-            Garden garden = new Garden(gardenName, userID);
-            GardenRepository.CreateGarden(garden);
+            Garden garden = new Garden(gardenName, accountID);
+            GardenRepository.CreateGarden(garden, accountID);
         }
 
         [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}")]
-        public void CreatePlantGroup(string gardenName, string plantGroupName, string userID)
+        public void CreatePlantGroup(string gardenName, string plantGroupName, string accountID)
         {
             if (string.IsNullOrEmpty(gardenName))
             {
@@ -114,13 +114,13 @@ namespace api.Controllers
                 throw new ArgumentNullException(nameof(plantGroupName));
             }
 
-            Garden garden = GardenRepository.GetByName(gardenName);
+            Garden garden = GardenRepository.GetByName(gardenName, accountID);
 
             PlantGroup plantGroup = new PlantGroup(plantGroupName);
-            PlantGroupRepository.CreatePlantGroup(garden, plantGroup, userID); 
+            PlantGroupRepository.CreatePlantGroup(garden, plantGroup, accountID); 
 
             garden.AddPlantGroup(plantGroup);
-            GardenRepository.AddPlantGroup(garden, plantGroup, userID); //should be update
+            GardenRepository.AddPlantGroup(garden, plantGroup, accountID); //should be update
         }
 
         [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}/plant/{plantName}")]
@@ -140,6 +140,8 @@ namespace api.Controllers
             {
                 throw new ArgumentException("message", nameof(plantName));
             }
+
+            Garden garden = GardenRepository.GetByName(gardenName, accountID);
 
             PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
 
