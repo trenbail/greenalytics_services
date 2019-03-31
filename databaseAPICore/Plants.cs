@@ -7,8 +7,8 @@ using db.connections;
 namespace db.plants
 {
 
-    public enum soil_classes { low, med, med_high, high } //This may need to change because I am unsure how we will categorize soil
     public enum temperature_classes { low, med_low, med, med_high, high }
+    public enum soil_classes { low, med, high } //This may need to change because I am unsure how we will categorize soil
     public enum sunlight_classes { low, med_low, med, med_high, high }
 
     public struct PlantInfo
@@ -142,7 +142,7 @@ namespace db.plants
         public MySqlDataReader Friends(string plantID)
         {
             //constructing query
-            string query = "SELECT friends FROM friends_enemies WHERE plantID = " + plantID + ";";
+            string query = "SELECT friends FROM friends WHERE plantID = " + plantID + ";";
 
             //Open connection
             Open();
@@ -160,7 +160,7 @@ namespace db.plants
         public MySqlDataReader Enemies(string plantID)
         {
             //constructing query
-            string query = "SELECT enemies FROM friends_enemies WHERE plantID = " + plantID + ";";
+            string query = "SELECT enemies FROM enemies WHERE plantID = " + plantID + ";";
 
             //Open connection
             Open();

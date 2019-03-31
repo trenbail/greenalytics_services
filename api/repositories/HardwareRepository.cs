@@ -10,7 +10,7 @@ namespace api.repositories
 {
     public class HardwareRepository : IHardwareRepository
     {
-        public void InsertHumidityData(string HardwareMAC, int UTCTime, int SensorValue)
+        public void InsertHumidityData(string HardwareMAC, long UTCTime, int SensorValue)
         {
             //ADD TYPE
             string SensorType = "humidity";
@@ -26,7 +26,7 @@ namespace api.repositories
             LightSensor.Insert(HardwareMAC, UTCTime, SensorType, SensorValue);
         }
 
-        public void InsertTemperatureData(string HardwareMAC, int UTCTime, int SensorValue)
+        public void InsertTemperatureData(string HardwareMAC, long UTCTime, int SensorValue)
         {
             string SensorType = "temperature";
             Sensors TemperatureSensor = new Sensors();
