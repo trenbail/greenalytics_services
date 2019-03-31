@@ -16,6 +16,11 @@ namespace api.domain.plant.requirements
             this.sunlightLevel = sunlightLevel;
         }
 
+        public string TypeOfReq()
+        {
+            return "SUNLIGHT";
+        }
+
         public bool Verify(Plant plant1, Plant plant2)
         {
             SunlightCompatibilityRequirement plant1_req = plant1.GetRequirement<SunlightCompatibilityRequirement>(typeof(SunlightCompatibilityRequirement));

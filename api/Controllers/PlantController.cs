@@ -65,10 +65,10 @@ namespace api.Controllers
             return GardenRepository.GetAllGardens(accountID);
         }
 
-        [HttpGet("incompatibilities")]
-        public ActionResult<Dictionary<Plant, List<IPlantRequirement>>> GetIncompatibilities(string plantGroupName, string plantName, string accountID){
+        [HttpGet("incompatibilities/plantGroup/{plantGroupName}/plant/{plantName}")]
+        public ActionResult<(string, string)> GetIncompatibilities(string plantGroupName, string plantName, string accountID){
             var plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
-            if (plantGroup != null)
+            if (plantGroup == null)
             {
                 return NotFound();
             }
@@ -78,7 +78,16 @@ namespace api.Controllers
                 return NotFound();
             }
             List<(Plant, List<IPlantRequirement>)> requirementList = plantGroup.GetAllIncompatibilities(plant);
-            return requirementList.ToDictionary(tup => tup.Item1, tup => tup.Item2);
+
+            List<(string, string)> expandedList = new List<(string, string)>();
+            foreach((Plant, List<IPlantRequirement>) reqPair in requirementList)
+            {
+                foreach(IPlantRequirement req in reqPair.Item2)
+                {
+                    expandedList.Add((reqPair.Item1.Name, req.TypeOfReq()));
+                }
+            }
+            return Ok(expandedList);
         }
 
         #endregion

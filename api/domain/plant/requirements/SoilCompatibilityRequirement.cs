@@ -12,5 +12,10 @@ namespace api.domain.plant.requirements
         {
             throw new NotImplementedException();
         }
+
+        string IPlantRequirement.TypeOfReq()
+        {
+            return "SOIL";
+        }
     }
 }
