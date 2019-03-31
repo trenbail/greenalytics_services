@@ -10,6 +10,7 @@ namespace api.domain.plant.requirements
     public class TemperatureCompatibilityRequirement : IPlantRequirement
     {
         public temperature_classes temperature_Classes;
+        private int limit = 2;
 
         public TemperatureCompatibilityRequirement(temperature_classes temperature_Classes)
         {
@@ -26,7 +27,7 @@ namespace api.domain.plant.requirements
             var plant1_req = plant1.GetRequirement<TemperatureCompatibilityRequirement>(typeof(TemperatureCompatibilityRequirement));
             var plant2_req = plant2.GetRequirement<TemperatureCompatibilityRequirement>(typeof(TemperatureCompatibilityRequirement));
 
-            if (Math.Abs((int)plant1_req.temperature_Classes - (int)plant2_req.temperature_Classes) >= 2)
+            if (Math.Abs((int)plant1_req.temperature_Classes - (int)plant2_req.temperature_Classes) >= this.limit)
             {
                 return false;
             }

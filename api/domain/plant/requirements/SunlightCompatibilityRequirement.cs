@@ -10,6 +10,7 @@ namespace api.domain.plant.requirements
     public class SunlightCompatibilityRequirement : IPlantRequirement
     {
         public sunlight_classes sunlightLevel;
+        private int limit = 2;
 
         public SunlightCompatibilityRequirement(sunlight_classes sunlightLevel)
         {
@@ -26,7 +27,7 @@ namespace api.domain.plant.requirements
             SunlightCompatibilityRequirement plant1_req = plant1.GetRequirement<SunlightCompatibilityRequirement>(typeof(SunlightCompatibilityRequirement));
             SunlightCompatibilityRequirement plant2_req = plant2.GetRequirement<SunlightCompatibilityRequirement>(typeof(SunlightCompatibilityRequirement));
             
-            if(Math.Abs((int)plant1_req.sunlightLevel - (int)plant2_req.sunlightLevel) >= 2)
+            if(Math.Abs((int)plant1_req.sunlightLevel - (int)plant2_req.sunlightLevel) >= this.limit)
             {
                 return false;
             }
