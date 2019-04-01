@@ -76,9 +76,32 @@ namespace db.plants
         //mySQL functions
 
         //public wrapper for 'Select * FROM __' in SelectALL in Connection
-        public MySqlDataReader ShowAll(string tableName)
+        public List<string> ShowAllPlants()
         {
-            return SelectAll(tableName); //todo fill out
+            //constructing query
+            string query = "SELECT name FROM masterPlants;";
+
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<string> returnList = new List<string>();
+
+            while (dataReader.Read())
+            {
+
+                returnList.Add(dataReader.GetString("name"));
+
+            }
+
+            Close();
+
+            return returnList;
+
         }
 
         //returns plantInfo struct given plantID - this should be changed to accept name
