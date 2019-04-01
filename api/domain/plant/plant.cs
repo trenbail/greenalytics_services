@@ -20,6 +20,7 @@ namespace api.domain
             }
             this.Name = name;
             this.requirements = new List<IPlantRequirement>();
+            this.tempString = new List<string>(); //TODO(zlef): DELETE THIS
         }
 
 
