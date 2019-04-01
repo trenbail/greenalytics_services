@@ -71,7 +71,7 @@ namespace api.Controllers
         public ActionResult<List<Plant>> GetAllPlants()
         {
             List<Plant> plants = new List<Plant>();
-            plants = PlantGroupRepository.GetAllPlants();
+            plants = PlantRepository.GetAllPlants();
             return plants;
         }
 

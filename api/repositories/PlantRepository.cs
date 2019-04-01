@@ -18,6 +18,10 @@ namespace api.repositories
             throw new NotImplementedException();
         }
 
+        public List<Plant> GetAllPlants()
+        {
+        }
+
         public Plant GetByName(string name)
         {
             var plantDB = new db.plants.Plants();

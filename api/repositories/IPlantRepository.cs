@@ -7,5 +7,6 @@ namespace api.repositories
     {
         Plant GetByName(string name);
         void CreatePlant(Plant plant);
+        List<Plant> GetAllPlants();
     }
 }
