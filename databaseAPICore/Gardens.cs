@@ -17,7 +17,7 @@ namespace db.gardens
         //public wrapper for 'Select * FROM __' in SelectALL in Connection - return type may need to be changed after talking to Zack
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
-        //returnd gardenID
+        //returns gardenID given userID and gardenName
         public string Convert(string userID, string name)
         {
        
@@ -45,6 +45,7 @@ namespace db.gardens
             return returnString;
         }
 
+        //Checks if a garden name exists for a user and returns a bool 
         public bool Exists(string userID, string gardenName)
         {
             //Converting gardenName to gardenID
@@ -76,6 +77,7 @@ namespace db.gardens
     
         }
 
+        //Adds a garden to a user account
         public void AddGarden(string userID, Guid gardenID_g, string gardenName)
         {
 
@@ -95,6 +97,7 @@ namespace db.gardens
             Close();
         }
 
+        //List all gardens that a user has
         public List<string> ListGardens(string userID)
         {
 
@@ -122,6 +125,7 @@ namespace db.gardens
             return (returnList);
         }
 
+        //List all groups inside a given garden for a user
         public List<string> ListGroups(string userID, string gardenName)
         {
 

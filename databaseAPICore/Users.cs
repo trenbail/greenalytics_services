@@ -5,6 +5,8 @@ using System;
 namespace db.users
 {
 
+    //TODO clean up, fix add user to check for existence, create login, create edit, create delete
+
     public class Users : Connect
     {
         //Constructor call to base case - selecting 'users' database

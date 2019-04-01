@@ -20,6 +20,7 @@ namespace db.groups
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
         //fix - include garden ID to so group names can be shared throughout gardens
+        //This has a bug in it
         public string Convert(string userID, string name)
         {
 
@@ -47,6 +48,7 @@ namespace db.groups
             return returnString;
         }
 
+        //Checks if a group name exists for a user and returns a bool 
         public bool Exists(string userID, string groupName)
         {
             //Converting gardenName to gardenID
@@ -78,6 +80,7 @@ namespace db.groups
 
         }
 
+        //Adds a hardware given the hardware ID and the gardengroup name for it to be added to
         public void AddHardware(string userID, string groupName, string MACaddress)
         {
             string groupID = Convert(userID, groupName);
@@ -95,6 +98,37 @@ namespace db.groups
 
         }
 
+        //Returns a string hardwareID given a garden groupName
+        public string GetHardwareID(string userID, string groupName)
+        {
+            //convert groupName into groupID
+            string groupID = Convert(userID, groupName);
+
+            //construct query
+            string query = String.Format("SELECT hardwareID FROM hasHardware WHERE groupID = '{0}';", groupID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            string returnString = string.Empty;
+
+            while (dataReader.Read())
+            {
+                returnString = dataReader.GetString("hardwareID");
+            }
+
+            Close();
+
+            return (returnString);
+        }
+
+        //Adds a plant group to a user given the userID and gardenName
         public void AddGroup(string userID, string gardenName, Guid groupID_g, string groupName)
         {
             //convert garden name to gardenID
@@ -167,6 +201,38 @@ namespace db.groups
             return (returnList);
         }
 
-        //TODO: list all plants for a user
+        //This function returns a list of all plants a user has - duplicates removed
+        public List<string> ListAllPlants(string userID)
+        {
+            //constructing query
+            string query = String.Format("SELECT p.name FROM masterPlants p, hasPlants h WHERE p.plantID = h.plantID AND userID = '{0}';", userID);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<string> returnList = new List<string>();
+            string temp;
+
+            while (dataReader.Read())
+            {
+                //stores the current plant name
+                temp = dataReader.GetString("name");
+                //If this plant is not in the return list
+                if(!returnList.Contains(temp))
+                {
+                    returnList.Add(temp);
+                }
+            }
+
+            Close();
+
+            return (returnList);
+        }
     }
 }

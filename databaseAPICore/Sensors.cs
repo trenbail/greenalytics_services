@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 namespace db.sensors
 {
+    //TODO: add function to retrieve data from table
 
     public class Sensors : Connect
     {
@@ -16,7 +17,7 @@ namespace db.sensors
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
 
-        //remove certain sensor
+        //remove  sensor given the id and type
         public void RemoveTable(string MACaddress, string type)
         {
             //constructing query

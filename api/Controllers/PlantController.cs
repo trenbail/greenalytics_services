@@ -48,7 +48,7 @@ namespace api.Controllers
             return NotFound();
         }
 
-        [HttpGet("garden/{name}")] //UNTESTED
+        [HttpGet("garden/{name}")]
         public ActionResult<Garden> GetGardenByName(string name, string accountID)
         {
             var garden = GardenRepository.GetByName(name, accountID);
@@ -59,7 +59,7 @@ namespace api.Controllers
             return NotFound();
         }
 
-        [HttpGet] //UNTESTED
+        [HttpGet]
         public ActionResult<List<Garden>> GetAllGardens(string accountID)
         {
             List<Garden> gardens = new List<Garden>();
