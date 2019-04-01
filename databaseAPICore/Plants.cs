@@ -51,7 +51,7 @@ namespace db.plants
             else { query = "SELECT plantID FROM masterPlants WHERE name = '" + old + "';"; }
 
             //Open connection
-            //Open();
+            Open();
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -66,7 +66,7 @@ namespace db.plants
             else { while (dataReader.Read()) { returnList.Add(dataReader["plantID"] + ""); } }
 
             //Close connection
-            //Close();
+            Close();
 
             //return the new string
             return returnList.FirstOrDefault();
