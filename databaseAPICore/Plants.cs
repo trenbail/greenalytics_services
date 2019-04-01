@@ -136,6 +136,7 @@ namespace db.plants
                 returnString = dataReader.GetString("description");
             }
 
+            Close();
             return (returnString);
         }
 
