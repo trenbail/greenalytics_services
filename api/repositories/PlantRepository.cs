@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using api.domain;
 using api.domain.plant.requirements;
 
@@ -20,7 +21,10 @@ namespace api.repositories
 
         public List<Plant> GetAllPlants()
         {
-
+            var plantDB = new db.plants.Plants();
+            List<string> plantNames = plantDB.ShowAllPlants();
+            List<Plant> plants = plantNames.Select(GetByName).ToList();
+            return plants;
         }
 
         public Plant GetByName(string name)
