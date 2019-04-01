@@ -20,6 +20,7 @@ namespace api.repositories
 
         public List<Plant> GetAllPlants()
         {
+
         }
 
         public Plant GetByName(string name)
