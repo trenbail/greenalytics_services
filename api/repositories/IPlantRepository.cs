@@ -1,4 +1,5 @@
-﻿using api.domain;
+﻿using System.Collections.Generic;
+using api.domain;
 
 namespace api.repositories
 {

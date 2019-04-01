@@ -52,5 +52,11 @@ namespace api.repositories
             //TODO: Add Hardware
             return plantGroup;
         }
+
+        public List<Plant> GetAllPlants()
+        {
+            var groupDB = new db.groups.Groups();
+            var plantNames = groupDB.ListAllPlants();
+        }
     }
 }

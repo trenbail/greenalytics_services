@@ -67,6 +67,14 @@ namespace api.Controllers
             return gardens;
         }
 
+        [HttpGet("plants")]
+        public ActionResult<List<Plant>> GetAllPlants()
+        {
+            List<Plant> plants = new List<Plant>();
+            plants = PlantGroupRepository.GetAllPlants();
+            return plants;
+        }
+
         [HttpGet("incompatibilities/plantGroup/{plantGroupName}/plant/{plantName}")]
         public ActionResult<(string, string)> GetIncompatibilities(string plantGroupName, string plantName, string accountID){
             var plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
@@ -91,6 +99,7 @@ namespace api.Controllers
             }
             return Ok(expandedList);
         }
+
 
         #endregion
 
