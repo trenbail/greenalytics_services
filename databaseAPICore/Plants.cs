@@ -3,6 +3,7 @@
 using MySql.Data.MySqlClient;
 using System.Collections.Generic; //used for lists
 using db.connections;
+using System.Linq;
 
 namespace db.plants
 {
@@ -50,7 +51,7 @@ namespace db.plants
             else { query = "SELECT plantID FROM masterPlants WHERE name = '" + old + "';"; }
 
             //Open connection
-            Open();
+            //Open();
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -65,10 +66,10 @@ namespace db.plants
             else { while (dataReader.Read()) { returnList.Add(dataReader["plantID"] + ""); } }
 
             //Close connection
-            Close();
+            //Close();
 
             //return the new string
-            return returnList[0];
+            return returnList.FirstOrDefault();
         }
 
 
