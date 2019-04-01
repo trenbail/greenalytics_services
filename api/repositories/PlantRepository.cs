@@ -39,12 +39,20 @@ namespace api.repositories
             requirements.Add(new TemperatureCompatibilityRequirement(plantInfo.Temperature));
             requirements.Add(new WaterCompatibilityRequirement(plantInfo.Rainfall));
 
+
             //soil req
             var plantType = plantInfo.Type;
             var description = plantDB.Description(plantID);
 
 
             Plant plant = new Plant(name);
+
+            //TODO(zlef): DELETE==================================================================================
+            plant.tempString.Add("Sunlight: " + plantInfo.Sunlight.ToString());
+            plant.tempString.Add("temperature: " + plantInfo.Temperature.ToString());
+            plant.tempString.Add("Rainfall: " + plantInfo.Rainfall.ToString());
+            //====================================================================================================
+
             plant.plantType = plantType;
 
             foreach(IPlantRequirement requirement in requirements)

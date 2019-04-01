@@ -6,10 +6,12 @@ namespace api.domain
     public class Plant : ValueObject
     {
         public string Name { get; private set; }
-        private List<IPlantRequirement> requirements;
+        public List<IPlantRequirement> requirements;
+
         public string Description;
         private PlantSchedule schedule;
         public string plantType;
+        public List<string> tempString;
 
         public Plant(string name)
         {
