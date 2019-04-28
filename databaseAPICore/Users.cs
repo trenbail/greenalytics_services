@@ -19,19 +19,76 @@ namespace db.users
         public MySqlDataReader ShowAll(string tableName) { return SelectAll(tableName); }
 
         //adds new user
-        public void Add(int id, string name, string password)
+        public string Signup(string name, string password)
+        {
+            //Trys to login to the system
+            string userExists = Login(name, password);
+
+            //If Login was successful, then this user already exists in the system and therfore Login will return a name
+            if (userExists.Length > 0)
+            {
+                return string.Empty;
+            }
+
+            //constructing query
+            string query = String.Format("INSERT INTO userInfo(userName, password) VALUES ('{0}','{1}');", name, password);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+
+            Close();
+
+            //Signup successful 
+            return name;
+        }
+
+        //Checks if the user is in the database and that the given password matches the user
+        public string Login(string name, string password)
         {
             //constructing query
-            string query = "INSERT INTO userInfo VALUES (" + id + ", \"" + name + "\", \"" + password + "\");";
+            string query = String.Format("SELECT userName, password FROM userInfo WHERE userName = '{0}' AND password = '{1}';", name, password);
 
             //Open connection
             Open();
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.ExecuteNonQuery();
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            //Setting database 'read' string to empty
+            string db_userName = string.Empty;
+            string db_password = string.Empty;
+
+            //Read the database
+            while (dataReader.Read())
+            {
+                db_userName = dataReader.GetString("userName");
+                db_password = dataReader.GetString("password");
+            }
 
             Close();
+
+            //Checking to see if either the username or password is empty (not found in the database)
+            if ((db_userName.Length == 0) | (db_password.Length == 0))
+            {
+                return string.Empty;
+            }
+
+            //The username and password were found in the database
+            return db_userName;
         }
 
     }

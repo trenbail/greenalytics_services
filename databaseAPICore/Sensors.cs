@@ -1,5 +1,6 @@
 ﻿using db.connections;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 using System;
 namespace db.sensors
 {
@@ -47,6 +48,37 @@ namespace db.sensors
             cmd.ExecuteNonQuery();
 
             Close();
+        }
+
+        //used for pulling hardware data
+        public List<List<long>> pulldata(string MACaddress, string type, int time)
+        {
+
+            //constructing query - This returns all the values from the selected table that match a given MACaddress and are from a time greater than the given time
+            string query = String.Format("SELECT time, value FROM {0} WHERE MACaddress = '{1}' AND time > {2};", type, MACaddress, time);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+
+            List<List<long>> valueList = new List<List<long>>();
+
+            //Read the database
+            while (dataReader.Read())
+            {
+                // array(x: time, y: value)
+                valueList.Add(new List<long> { dataReader.GetInt64("time"), dataReader.GetInt64("value") });
+            }
+
+            Close();
+
+            return valueList;
         }
     }
 }
