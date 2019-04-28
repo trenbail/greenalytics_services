@@ -97,6 +97,37 @@ namespace db.gardens
             Close();
         }
 
+        //Deletes a garden
+        public bool DeleteGarden(string userID, string gardenName)
+        {
+
+            //convert gardenName to gardenID
+            string gardenID = Convert(userID, gardenName);
+
+            //constructing query
+            string query = String.Format("DELETE FROM hasGardens WHERE userID ='{0}' AND  gardenID = '{1}';", userID, gardenID);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                //Error with deletion
+                return false;
+            }
+
+            Close();
+
+            //Delete successful
+            return true;
+        }
+
         //List all gardens that a user has
         public List<string> ListGardens(string userID)
         {
