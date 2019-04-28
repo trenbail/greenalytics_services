@@ -50,6 +50,7 @@ namespace db.sensors
             Close();
         }
 
+        //used for pulling hardware data
         public List<List<long>> pulldata(string MACaddress, string type, int time)
         {
 
