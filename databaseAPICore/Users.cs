@@ -44,6 +44,7 @@ namespace db.users
             }
             catch
             {
+                Close();
                 return string.Empty;
             }
 
@@ -89,6 +90,75 @@ namespace db.users
 
             //The username and password were found in the database
             return db_userName;
+        }
+
+        //Updates user's token
+        public bool SetToken(string name, string token)
+        {
+            //constructing query
+            string query = String.Format("update userInfo set token = '{0}' where userName = '{1}';", token, name);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                //Error with token update
+                Close();
+                return false;
+            }
+
+            Close();
+
+            //Token updated
+            return true;
+
+        }
+
+        public string GetToken(string name)
+        {
+            //constructing query
+            string query = String.Format("SELECT token FROM userInfo WHERE userName = '{0}';", name);
+
+            //Open connection
+            Open();
+
+            //Setting database 'read' string to empty
+            string token = string.Empty;
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+
+
+                //Read the database
+                while (dataReader.Read())
+                {
+                    token = dataReader.GetString("token");
+                }
+            }
+            catch
+            {
+                Close();
+                return string.Empty;
+            }
+
+            Close();
+
+            //Token updated
+            return token;
+
         }
 
     }
