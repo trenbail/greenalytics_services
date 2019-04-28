@@ -163,6 +163,9 @@ namespace db.plants
             return (returnString);
         }
 
+
+        // NOT TO BE CALLED RIGHT NOW / MAY BE USED LATER
+
         //returns friends given a plant id - this should be changed to accept name
         public MySqlDataReader Friends(string plantID)
         {

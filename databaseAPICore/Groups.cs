@@ -98,6 +98,32 @@ namespace db.groups
 
         }
 
+        //Deletes a hardware given the hardware ID and the gardengroup name for it to be added to
+        public bool DeleteHardware(string MACaddress)
+        {
+            string query = String.Format(" DELETE FROM hasHardware WHERE MACaddress = '{0}';", MACaddress);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                //Query failed - no hardware to be deleted 
+                return false;
+            }
+
+            Close();
+
+            //Delete was successful
+            return true;
+        }
+
         //Returns a string hardwareID given a garden groupName
         public string GetHardwareID(string userID, string groupName)
         {
@@ -150,6 +176,39 @@ namespace db.groups
             Close();
         }
 
+        // Deletes a garden group from a garden
+        public bool DeleteGroup(string userID, string gardenName, string groupName)
+        {
+            //convert garden name to gardenID
+            Gardens tempgarden = new Gardens();
+            string gardenID = tempgarden.Convert(userID, gardenName);
+            //convert groupID_g to string
+            string groupID = Convert(userID, groupName);
+
+            //constructing query - deletes the group from the the garden
+            string query = String.Format(" DELETE FROM hasGroups WHERE userID ='{0}' AND  gardenID = '{1}' AND groupID = {2};", userID, gardenID, groupID);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                //Query failed - no group to be deleted 
+                return false;
+            }
+
+            Close();
+
+            //Delete was successful
+            return true;
+        }
+
         //This function adds the given plant to the given garden group for the given user
         public void AddPlant(string userID, string groupName, string plantName)
         {
@@ -161,7 +220,7 @@ namespace db.groups
             string groupID = Convert(userID, groupName);
 
             //constructing query - adds the plant to the group or if it is already there increases count by one
-            string query = String.Format("INSERT INTO hasPlants(userID, groupID, plantID) VALUES('{0}','{1}',{2}) ON DUPLICATE KEY UPDATE quantity = quantity + 1", userID, groupID, plantID);
+            string query = String.Format("INSERT INTO hasPlants(userID, groupID, plantID) VALUES('{0}','{1}',{2}) ON DUPLICATE KEY UPDATE quantity = quantity + 1;", userID, groupID, plantID);
 
             //Open connection
             Open();
@@ -171,6 +230,39 @@ namespace db.groups
             cmd.ExecuteNonQuery();
 
             Close();
+        }
+
+        //This function deletes a plant from a plant group
+        public bool DeletePlant(string userID, string groupName, string plantName)
+        {
+            //converting to plantID - doing this to allow adding by plantName
+            Plants tempPlant = new Plants();
+            string plantID = tempPlant.Convert(plantName);
+
+            //Convert groupName to groupID given the user
+            string groupID = Convert(userID, groupName);
+
+            //constructing query - deletes the plant from the the plant group
+            string query = String.Format("DELETE FROM hasPlants WHERE userID ='{0}' AND  groupID = '{1}' AND plantID = {2};", userID, groupID, plantID);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                //Query failed - no plant to be deleted 
+                return false;
+            }
+            Close();
+
+            //Delete was successful
+            return true;
         }
 
         //This function returns a list of plant names inside a group
