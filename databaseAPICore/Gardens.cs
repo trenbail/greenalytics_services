@@ -118,6 +118,7 @@ namespace db.gardens
             }
             catch
             {
+                Close();
                 //Error with deletion
                 return false;
             }

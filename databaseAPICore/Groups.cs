@@ -114,6 +114,7 @@ namespace db.groups
             }
             catch
             {
+                Close();
                 //Query failed - no hardware to be deleted 
                 return false;
             }
@@ -199,6 +200,7 @@ namespace db.groups
             }
             catch
             {
+                Close();
                 //Query failed - no group to be deleted 
                 return false;
             }
@@ -256,6 +258,7 @@ namespace db.groups
             }
             catch
             {
+                Close();
                 //Query failed - no plant to be deleted 
                 return false;
             }
