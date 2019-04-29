@@ -12,7 +12,7 @@ namespace api.repositories
         {
             var userDB = new Users();
             string user = userDB.Login(userID, password);
-            if(String.IsNullOrEmpty(user))
+            if(!String.IsNullOrEmpty(user))
             {
                 userDB.SetToken(userID, token);
             }
