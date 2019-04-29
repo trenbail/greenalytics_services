@@ -11,8 +11,8 @@ namespace api.Controllers
     }
     public class WaterMessage : Message
     {
-        string body = "this is a water notification";
-        string title = "this is a water notification title";
+        readonly string body = "this is a water notification";
+        readonly string title = "this is a water notification title";
         private string token;
 
         public WaterMessage(string token)
