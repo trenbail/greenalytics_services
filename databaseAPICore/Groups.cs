@@ -80,6 +80,18 @@ namespace db.groups
 
         }
 
+        public void updateNotification(IEnumerable<(string, string)> userIDAndpgName)
+        {
+            var now = DateTime.Now;
+            var future = now.AddDays(2);
+            throw new NotImplementedException();
+        }
+
+        public List<(string, string)> getNotificationData()
+        {
+            throw new NotImplementedException();
+        }
+
         //Adds a hardware given the hardware ID and the gardengroup name for it to be added to
         public void AddHardware(string userID, string groupName, string MACaddress)
         {
