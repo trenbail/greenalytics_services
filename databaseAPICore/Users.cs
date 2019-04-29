@@ -1,5 +1,6 @@
 ﻿using db.connections;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 using System;
 
 namespace db.users
@@ -161,6 +162,53 @@ namespace db.users
 
         }
 
+        public void UpdateDate(string userID, string GroupName, DateTime newdate)
+        {
+            //constructing query
+            string query = String.Format("update reminder set datetime = CAST('{0}' AS DATE) where userName = '{1}' AND groupName = '{2}';", newdate.ToString("yyyy-MM-dd"), userID, GroupName);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception("User is not in the table", ex);
+            }
+
+            Close();
+        }
+
+        public List<(string, string, string)> getDates(DateTime today)
+        {
+            //constructing query
+            string query = String.Format("SELECT groupName, token, userName FROM reminder WHERE datetime <= '{0}';", today.ToString("yyyy-MM-dd"));
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+            
+            List<(string, string, string)> returnList = new List<(string, string, string)>();
+
+            while (dataReader.Read())
+            {
+                returnList.Add((dataReader.GetString("userName"), dataReader.GetString("groupName"), dataReader.GetString("token")));
+            }
+
+            Close();
+
+            return (returnList);
+        }
     }
 
 }
