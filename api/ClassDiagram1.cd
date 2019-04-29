@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="api.Controllers.HardwareController">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAgAAAAAAAAAAAABAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Controllers\HardwareController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.Controllers.GreenalyticsController">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAIAAQAAQAAAAAAAAAQAABAAAAAAKAgABgAIAAAA=</HashCode>
+      <FileName>Controllers\PlantController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.plant.requirements.SoilCompatibilityRequirement" BaseTypeListCollapsed="true">
+    <Position X="12" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\requirements\SoilCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="api.domain.plant.requirements.SunlightCompatibilityRequirement" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAQAAAAAAAAAAAAEAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\requirements\SunlightCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="api.domain.plant.requirements.TemperatureCompatibilityRequirement" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAEAAAAAAAgAAAAAE=</HashCode>
+      <FileName>domain\plant\requirements\TemperatureCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="api.domain.plant.requirements.WaterCompatibilityRequirement" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAQAAAAAAAAAAAAAAEACAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\requirements\WaterCompatibilityRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="api.domain.Plant">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBBAAAAAAAAgAAAAAACAAQQAACAAAABCAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\plant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.PlantSchedule" Collapsed="true">
+    <Position X="12.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\PlantSchedule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.IPlantGroupStat">
+    <Position X="12.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant_group\IPlantGroupStat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.PlantGroup">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAQAAAAAAAEAAgAAAKABAQAAAAAAAAAAAAAAAABkAA=</HashCode>
+      <FileName>domain\plant_group\PlantGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.Entity" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.Garden">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAIAAgAAAAQAAAAAAAAAAAAAAAABAEA=</HashCode>
+      <FileName>domain\garden.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.Hardware">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\hardware.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.domain.ValueObject">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\ValueObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="api.repositories.GardenRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQQAAAAAAAAAAAAAACAAAAIAAAAAAAAAAg=</HashCode>
+      <FileName>repositories\GardenRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="api.repositories.PlantGroupRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAgAAAAAAgAAAAIAAAg=</HashCode>
+      <FileName>repositories\PlantGroupRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="api.repositories.PlantRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAQAAAAAAAAEAAAAAAAAAgAAAAAg=</HashCode>
+      <FileName>repositories\PlantRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="api.domain.IPlantRequirement">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\plant\IPlantRequirement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="api.repositories.IGardenRepository">
+    <Position X="3" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAACAAAAIAAAAAAAAAAg=</HashCode>
+      <FileName>repositories\IGardenRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="api.repositories.IPlantGroupRepository">
+    <Position X="5.25" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="api.repositories.IRepository" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="6.562" />
+        <Point X="3.75" Y="6.875" />
+        <Point X="6.062" Y="6.875" />
+        <Point X="6.062" Y="7.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAg=</HashCode>
+      <FileName>repositories\IPlantGroupRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="api.repositories.IPlantRepository">
+    <Position X="0.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgAAAAAg=</HashCode>
+      <FileName>repositories\IPlantRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="api.repositories.IRepository" Collapsed="true">
+    <Position X="3" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>repositories\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
