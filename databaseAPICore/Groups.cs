@@ -49,6 +49,11 @@ namespace db.groups
             return returnString;
         }
 
+        public void initNotifications(string userID, string name)
+        {
+            
+        }
+
         //Checks if a group name exists for a user and returns a bool 
         public bool Exists(string userID, string groupName)
         {

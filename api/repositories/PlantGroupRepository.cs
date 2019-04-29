@@ -56,12 +56,12 @@ namespace api.repositories
         public List<(string, string)> GatherWaterNotifications(DateTime now)
         {
             var groupDB = new db.groups.Groups();
-            //plantGroupName, token
-            List<(string, string)> notificationData = groupDB.getNotificationData();
+            //userID, plantGroupName, token
+            List<(string, string, string)> notificationData = groupDB.getNotificationData();
 
-            groupDB.updateNotification(notificationData);
+            groupDB.updateNotification(notificationData.Select(a => (a.Item1, a.Item2)));
 
-            return notificationData;
+            return notificationData.Select(a => (a.Item2, a.Item3)).ToList();
         }
     }
 }
