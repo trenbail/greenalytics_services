@@ -46,6 +46,7 @@ namespace api.Controllers
             httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
             HttpResponseMessage response = await client.PostAsync(url, httpContent);
+            var body = response.Content.ReadAsStringAsync().Result;
     }
 
     #endregion

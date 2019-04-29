@@ -23,9 +23,10 @@ namespace api.Controllers
         public override JObject ToJSON()
         {
             var jo = new JObject();
-            jo.Add("to", this.token);
+            var to = "ExponentPushToken["+this.token+"]";
             jo.Add("title", this.title);
             jo.Add("body", this.body);
+            jo.Add("to", to);
             return jo;
         }
     }
