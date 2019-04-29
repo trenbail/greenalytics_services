@@ -33,6 +33,7 @@ namespace api.repositories
         {
             var groupDB = new db.groups.Groups();
             groupDB.AddGroup(userID, garden.Name, plantGroup.Id, plantGroup.Name);
+            groupDB.initNotifications(userID, plantGroup.Name);
             return;
         }
 
@@ -59,7 +60,7 @@ namespace api.repositories
             //userID, plantGroupName, token
             List<(string, string, string)> notificationData = groupDB.getNotificationData();
 
-            groupDB.updateNotification(notificationData.Select(a => (a.Item1, a.Item2)));
+            //groupDB.updateNotification(notificationData.Select(a => (a.Item1, a.Item2)));
 
             return notificationData.Select(a => (a.Item2, a.Item3)).ToList();
         }
