@@ -52,5 +52,16 @@ namespace api.repositories
             //TODO: Add Hardware
             return plantGroup;
         }
+
+        public List<(string, string)> GatherWaterNotifications(DateTime now)
+        {
+            var groupDB = new db.groups.Groups();
+            //plantGroupName, token
+            List<(string, string)> notificationData = groupDB.getNotificationData();
+
+            groupDB.updateNotification(notificationData);
+
+            return notificationData;
+        }
     }
 }
