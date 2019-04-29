@@ -9,45 +9,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/schedule")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        public IPlantRepository PlantRepository { get; }
-        public IPlantGroupRepository PlantGroupRepository { get; }
+        public IAuthRepository AuthRepository { get; }
 
-        public AuthController(IPlantRepository plantRepository,
-            IPlantGroupRepository plantGroupRepository)
+        public AuthController(IAuthRepository authRepository)
         {
-            PlantRepository = plantRepository;
-            PlantGroupRepository = plantGroupRepository;
+            AuthRepository = authRepository;
         }
 
-        #region POST
-        [HttpPost("water")]
-        public void SendWaterReminders()
+        [HttpPost("login/{userID}/{password}/{token}")]
+        public string login(string userID, string password, string token)
         {
-            //pgName, token
-            List<(String, String)> outOfDateList = PlantGroupRepository.GatherWaterNotifications(DateTime.Now);
-            foreach (var tup in outOfDateList)
-            {
-                var (pgName, token) = tup;
-                sendNotification(new WaterMessage(token));
-            }
+            return this.AuthRepository.login(userID, password, token);
         }
 
-        private async void sendNotification(Message message)
+        [HttpPost("signup/{userID}/{password}")]
+        public void signup(string userID, string password)
         {
-            var url = "https://exp.host/--/api/v2/push/send";
-            HttpClient client = new HttpClient();
-
-            var jdata = message.ToJSON();
-            var httpContent = new StringContent(jdata.ToString());
-            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-            HttpResponseMessage response = await client.PostAsync(url, httpContent);
-    }
-
-    #endregion
+            AuthRepository.signup(userID, password);
+        }
 }
 }
