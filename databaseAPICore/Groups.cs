@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using db.plants;
 using db.gardens;
+using db.users;
 
 namespace db.groups
 {
@@ -83,13 +84,27 @@ namespace db.groups
         public void updateNotification(IEnumerable<(string, string)> userIDAndpgName)
         {
             var now = DateTime.Now;
-            var future = now.AddDays(2);
-            throw new NotImplementedException();
+            var future = now.AddDays(2); // datetime
+
+            Users update = new Users();
+
+            foreach (var t in userIDAndpgName)
+            {
+                var (userID, pname) = t;
+                update.UpdateDate(userID, pname, future);
+            }
         }
 
-        public List<(string, string)> getNotificationData()
+        //pgName / token
+        public List<(string, string, string)> getNotificationData()
         {
-            throw new NotImplementedException();
+            var now = DateTime.Now;
+
+            //return all rows where current date is less than now
+
+            Users get = new Users();
+
+            return get.getDates(now);
         }
 
         //Adds a hardware given the hardware ID and the gardengroup name for it to be added to
