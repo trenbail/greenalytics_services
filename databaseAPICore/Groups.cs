@@ -249,9 +249,9 @@ namespace db.groups
             string groupID = Convert(userID, groupName);
 
             //constructing query - deletes the group from the the garden
-            string query_delete_plant = String.Format(" DELETE FROM hasPlants WHERE userID ='{0}' AND groupID = {1};", userID, groupID);
-            string query_delete_hardware = String.Format(" DELETE FROM hasHardware WHERE groupID = {0};", groupID);
-            string query_delete_group = String.Format(" DELETE FROM hasGroups WHERE userID ='{0}' AND  gardenID = '{1}' AND groupID = {2};", userID, gardenID, groupID);
+            string query_delete_plant = String.Format(" DELETE FROM hasPlants WHERE userID ='{0}' AND groupID = '{1}';", userID, groupID);
+            string query_delete_hardware = String.Format(" DELETE FROM hasHardware WHERE groupID = '{0}';", groupID);
+            string query_delete_group = String.Format(" DELETE FROM hasGroups WHERE userID ='{0}' AND  gardenID = '{1}' AND groupID = '{2}';", userID, gardenID, groupID);
 
 
             //Open connection
