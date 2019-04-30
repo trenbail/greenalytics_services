@@ -157,6 +157,36 @@ namespace db.groups
             return true;
         }
 
+        //Deletes a hardware given the hardware ID and the gardengroup name for it to be added to
+        public bool DeleteHardware_byGroup(string userName, string gardenName)
+        {
+
+            var groupID = Convert(userName, gardenName);
+
+            string query = String.Format(" DELETE FROM hasHardware WHERE groupID = '{0}';", groupID);
+
+            //Open connection
+            Open();
+
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                Close();
+                //Query failed - no hardware to be deleted 
+                return false;
+            }
+
+            Close();
+
+            //Delete was successful
+            return true;
+        }
+
         //Returns a string hardwareID given a garden groupName
         public string GetHardwareID(string userID, string groupName)
         {
@@ -219,7 +249,10 @@ namespace db.groups
             string groupID = Convert(userID, groupName);
 
             //constructing query - deletes the group from the the garden
-            string query = String.Format(" DELETE FROM hasGroups WHERE userID ='{0}' AND  gardenID = '{1}' AND groupID = {2};", userID, gardenID, groupID);
+            string query_delete_plant = String.Format(" DELETE FROM hasPlants WHERE userID ='{0}' AND groupID = {1};", userID, groupID);
+            string query_delete_hardware = String.Format(" DELETE FROM hasHardware WHERE groupID = {0};", groupID);
+            string query_delete_group = String.Format(" DELETE FROM hasGroups WHERE userID ='{0}' AND  gardenID = '{1}' AND groupID = {2};", userID, gardenID, groupID);
+
 
             //Open connection
             Open();
@@ -227,7 +260,19 @@ namespace db.groups
             try
             {
                 //Create Command
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlCommand cmd = new MySqlCommand(query_delete_plant, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                Close();
+                //Query failed - issue with deleting plant
+                return false;
+            }
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query_delete_hardware, connection);
                 cmd.ExecuteNonQuery();
             }
             catch
@@ -236,6 +281,19 @@ namespace db.groups
                 //Query failed - no group to be deleted 
                 return false;
             }
+            try
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query_delete_group, connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                Close();
+                //Query failed - no group to be deleted 
+                return false;
+            }
+
 
             Close();
 
