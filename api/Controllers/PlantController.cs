@@ -191,7 +191,7 @@ namespace api.Controllers
             GardenRepository.DeleteGarden(garden, accountID);       
         }
 
-        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}")]
+        [HttpDelete("garden/{gardenName}/plantGroup/{plantGroupName}")]
         public void DeletePlantGroup(string gardenName, string plantGroupName, string accountID)
         {
             if (string.IsNullOrEmpty(gardenName))
