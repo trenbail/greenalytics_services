@@ -11,13 +11,14 @@ namespace api.Controllers
     }
     public class WaterMessage : Message
     {
-        readonly string body = "this is a water notification";
+        readonly string body = " needs water!";
         readonly string title = "this is a water notification title";
         private string token;
 
-        public WaterMessage(string token)
+        public WaterMessage(string token, string pg)
         {
             this.token = token;
+            this.body = pg + body;
         }
 
         public override JObject ToJSON()
