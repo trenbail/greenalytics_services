@@ -2,6 +2,8 @@
 using db.connections;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using db.groups;
+
 
 namespace db.gardens
 {
@@ -105,23 +107,41 @@ namespace db.gardens
             string gardenID = Convert(userID, gardenName);
 
             //constructing query
-            string query = String.Format("DELETE FROM hasGardens WHERE userID ='{0}' AND  gardenID = '{1}';", userID, gardenID);
+            string collect_groups = String.Format("SELECT groupName FROM hasGroups WHERE userID ='{0}' AND  gardenID = '{1}';", userID, gardenID);
+            string query_delete_garden = String.Format("DELETE FROM hasGardens WHERE userID ='{0}' AND  gardenID = '{1}';", userID, gardenID);
 
             //Open connection
             Open();
 
-            try
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(collect_groups, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<string> groups = new List<string>();
+
+            while (dataReader.Read())
             {
-                //Create Command
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
+                groups.Add(dataReader.GetString("groupName"));
             }
-            catch
+
+            Close();
+
+            var accessgroups = new Groups();
+   
+            //Deletes each group inside a garden
+            foreach (var group in groups)
             {
-                Close();
-                //Error with deletion
-                return false;
+                accessgroups.DeleteGroup(userID, gardenName, group);
             }
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd2 = new MySqlCommand(query_delete_garden, connection);
+            cmd2.ExecuteNonQuery();
 
             Close();
 
