@@ -217,6 +217,34 @@ namespace db.groups
             return (returnString);
         }
 
+        //Returns a list of MACaddresses that are registered for the given user
+        public List<List<string>> ListHardware(string userName)
+        {
+            //constructing query
+            string query = String.Format("SELECT pg.groupName, hh.hardwareID FROM hasHardware hh, hasGroups pg WHERE hh.groupID = pg.groupID AND pg.userID = '{0}';", userName);
+
+            //Open connection
+            Open();
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<List<string>> returnList = new List<List<string>>();
+
+            while (dataReader.Read())
+            {
+                // Index 1: groupName, Index 2: Hardwareaddress
+                returnList.Add(new List<string> { dataReader.GetString("groupName"), dataReader.GetString("hardwareID") });
+            }
+
+            Close();
+
+            return (returnList);
+        }
+
         //Adds a plant group to a user given the userID and gardenName
         public void AddGroup(string userID, string gardenName, Guid groupID_g, string groupName)
         {
