@@ -32,7 +32,7 @@ namespace api.Controllers
             foreach (var tup in outOfDateList)
             {
                 var (pgName, token) = tup;
-                sendNotification(new WaterMessage(token));
+                sendNotification(new WaterMessage(token, pgName));
             }
         }
 
