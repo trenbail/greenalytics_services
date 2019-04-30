@@ -27,6 +27,12 @@ namespace api.repositories
             gardenDB.AddGarden(userID, garden.Id, garden.Name);
         }
 
+        public void DeleteGarden(Garden garden, string userID)
+        {
+            Gardens gardenDB = new Gardens();
+            gardenDB.DeleteGarden(userID, garden.Name);
+        }
+
         public List<Garden> GetAllGardens(string accountID)
         {
             Gardens gardenDB = new Gardens();

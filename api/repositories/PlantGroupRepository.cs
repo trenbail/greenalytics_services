@@ -22,6 +22,12 @@ namespace api.repositories
             groupDB.AddPlant(userID, plantGroup.Name, plant.Name);
         }
 
+        public void DeletePlantFromPlantGroup(PlantGroup plantGroup, Plant plant, string userID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeletePlant(userID, plantGroup.Name, plant.Name);
+        }
+
         public void AddSensor(PlantGroup plantGroup)
         {
             Guid id = plantGroup.getHardwareID();
@@ -35,6 +41,12 @@ namespace api.repositories
             groupDB.AddGroup(userID, garden.Name, plantGroup.Id, plantGroup.Name);
             groupDB.initNotifications(userID, plantGroup.Name);
             return;
+        }
+
+        public void DeletePlantGroup(Garden garden, PlantGroup plantGroup, string userID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeleteGroup(userID,garden.Name,plantGroup.Name);
         }
 
         public PlantGroup GetByName(string name, string userID)
