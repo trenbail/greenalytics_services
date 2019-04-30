@@ -22,6 +22,12 @@ namespace api.repositories
             groupDB.AddPlant(userID, plantGroup.Name, plant.Name);
         }
 
+        public void DeletePlantFromPlantGroup(PlantGroup plantGroup, Plant plant, string userID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeletePlant(userID, plantGroup.Name, plant.Name);
+        }
+
         public void AddSensor(PlantGroup plantGroup)
         {
             Guid id = plantGroup.getHardwareID();
