@@ -43,6 +43,12 @@ namespace api.repositories
             return;
         }
 
+        public void DeletePlantGroup(Garden garden, PlantGroup plantGroup, string userID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeleteGroup(userID,garden.Name,plantGroup.Name);
+        }
+
         public PlantGroup GetByName(string name, string userID)
         {
             var plantGroup = new PlantGroup(name);

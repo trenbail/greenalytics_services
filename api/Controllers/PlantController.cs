@@ -189,6 +189,25 @@ namespace api.Controllers
 
             Garden garden = GardenRepository.GetByName(gardenName, accountID);
             GardenRepository.DeleteGarden(garden, accountID);       
+        }
+
+        [HttpPost("garden/{gardenName}/plantGroup/{plantGroupName}")]
+        public void DeletePlantGroup(string gardenName, string plantGroupName, string accountID)
+        {
+            if (string.IsNullOrEmpty(gardenName))
+            {
+                throw new ArgumentException("message", nameof(gardenName));
+            }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
+            Garden garden = GardenRepository.GetByName(gardenName,accountID);
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
+
+            PlantGroupRepository.DeletePlantGroup(garden,plantGroup,accountID);
 
         }
 
