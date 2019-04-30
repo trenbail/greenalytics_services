@@ -47,6 +47,11 @@ namespace api.domain
             this.Plants.Add(p);
         }
 
+        public void DeletePlant(Plant p)
+        {
+            this.Plants.Remove(p);
+        }
+
         public void AddHardware(Hardware hw)
         {
             if(this.Hardware != null)
