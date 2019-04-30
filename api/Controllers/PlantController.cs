@@ -175,6 +175,23 @@ namespace api.Controllers
 
         #region DELETE
 
+        [HttpDelete("garden/{gardenName}")]
+        public void DeleteGarden(string accountID,string gardenName)
+        {
+            if (string.IsNullOrEmpty(accountID))
+            {
+                throw new ArgumentException("message", nameof(accountID));
+            }
+            if (string.IsNullOrEmpty(gardenName))
+            {
+                throw new ArgumentException("message", nameof(gardenName));
+            }
+
+            Garden garden = GardenRepository.GetByName(gardenName, accountID);
+            GardenRepository.DeleteGarden(garden, accountID);       
+
+        }
+
         [HttpDelete("garden/{gardenName}/plantGroup/{plantGroupName}/plant/{plantName}")]
         public void DeletePlantFromPlantGroup(string gardenName, string plantGroupName, string plantName, string accountID)
         {
@@ -203,6 +220,7 @@ namespace api.Controllers
             plantGroup.DeletePlant(plant);
             PlantGroupRepository.DeletePlantFromPlantGroup(plantGroup, plant, accountID);
         }
+
 
 
         #endregion
