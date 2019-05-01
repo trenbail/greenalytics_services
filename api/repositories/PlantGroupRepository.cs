@@ -19,8 +19,9 @@ namespace api.repositories
         void AddHardwareToPlantGroup(string accountID, string plantGroupName, string hardwareID);
         void RemoveHardwareFromPlantGroup(string accountID, string plantGroupName, string hardwareID);
         List<List<string>> GetAllHardware(string accountID);
+        void DeleteByName(string gardenName, string groupName, string accountID);
+        void DeletePlantFromPlantGroupByName(string accountID, string gardenName, string plantGroupName, string plantName);
     }
-
     public class PlantGroupRepository : IPlantGroupRepository
     {
         private readonly IHardwareRepository hardwareRepository;
@@ -109,6 +110,18 @@ namespace api.repositories
         {
             var groupDB = new db.groups.Groups();
             return groupDB.ListHardware(accountID);
+        }
+
+        public void DeleteByName(string gardenName, string groupName, string accountID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeleteGroup(accountID, gardenName, groupName);
+        }
+
+        public void DeletePlantFromPlantGroupByName(string accountID, string gardenName, string plantGroupName, string plantName)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeletePlant(accountID, plantGroupName, plantName);
         }
     }
 }

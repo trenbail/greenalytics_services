@@ -8,6 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.repositories
 {
+    public interface IGardenRepository : IRepository
+    {
+        Garden GetByName(string name, string userID);
+        void CreateGarden(Garden garden, string userID);
+        void DeleteGarden(Garden garden, string userID);
+        List<Garden> GetAllGardens(string accountID);
+        void AddPlantGroup(Garden garden, PlantGroup plantGroup, string userID);
+        void DeleteByName(string name, string accountID);
+    }
     public class GardenRepository : IGardenRepository
     {
         public IPlantGroupRepository PlantGroupRepository { get; }
@@ -33,6 +42,7 @@ namespace api.repositories
             gardenDB.DeleteGarden(userID, garden.Name);
         }
 
+
         public List<Garden> GetAllGardens(string accountID)
         {
             Gardens gardenDB = new Gardens();
@@ -50,6 +60,12 @@ namespace api.repositories
             names.Select(name => PlantGroupRepository.GetByName(name, userID)).ToList()
                 .ForEach(garden.AddPlantGroup);
             return garden;
+        }
+
+        public void DeleteByName(string name, string accountID)
+        {
+            Gardens gardenDB = new Gardens();
+            gardenDB.DeleteGarden(accountID, name);
         }
     }
 }
