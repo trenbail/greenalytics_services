@@ -8,12 +8,28 @@ using System.Threading.Tasks;
 
 namespace api.repositories
 {
+    public interface IPlantGroupRepository
+    {
+        PlantGroup GetByName(string name, string userID);
+        void CreatePlantGroup(Garden garden, PlantGroup plantGroup, string userID);
+        void DeletePlantGroup(Garden garden, PlantGroup plantGroup, string userID);
+        void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant, string userID);
+        void DeletePlantFromPlantGroup(PlantGroup plantGroup, Plant plant, string userID);
+        List<(string, string)> GatherWaterNotifications(DateTime now);
+        void AddHardwareToPlantGroup(string accountID, string plantGroupName, string hardwareID);
+        void RemoveHardwareFromPlantGroup(string accountID, string plantGroupName, string hardwareID);
+        List<List<string>> GetAllHardware(string accountID);
+    }
+
     public class PlantGroupRepository : IPlantGroupRepository
     {
+        private readonly IHardwareRepository hardwareRepository;
+
         public IPlantRepository PlantRepo { get; }
-        public PlantGroupRepository(IPlantRepository plantRepo)
+        public PlantGroupRepository(IPlantRepository plantRepo, IHardwareRepository hardwareRepository)
         {
             PlantRepo = plantRepo;
+            this.hardwareRepository = hardwareRepository;
         }
 
         public void AddPlantToPlantGroup(PlantGroup plantGroup, Plant plant, string userID)
@@ -75,6 +91,24 @@ namespace api.repositories
             //groupDB.updateNotification(notificationData.Select(a => (a.Item1, a.Item2)));
 
             return notificationData.Select(a => (a.Item2, a.Item3)).ToList();
+        }
+
+        public void AddHardwareToPlantGroup(string accountID, string plantGroupName, string hardwareID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.AddHardware(accountID, plantGroupName, hardwareID);
+        }
+
+        public void RemoveHardwareFromPlantGroup(string accountID, string plantGroupName, string hardwareID)
+        {
+            var groupDB = new db.groups.Groups();
+            groupDB.DeleteHardware_byGroup(accountID, plantGroupName);
+        }
+
+        public List<List<string>> GetAllHardware(string accountID)
+        {
+            var groupDB = new db.groups.Groups();
+            return groupDB.ListHardware(accountID);
         }
     }
 }

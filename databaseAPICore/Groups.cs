@@ -158,10 +158,10 @@ namespace db.groups
         }
 
         //Deletes a hardware given the hardware ID and the gardengroup name for it to be added to
-        public bool DeleteHardware_byGroup(string userName, string gardenName)
+        public bool DeleteHardware_byGroup(string userName, string groupName)
         {
 
-            var groupID = Convert(userName, gardenName);
+            var groupID = Convert(userName, groupName);
 
             string query = String.Format(" DELETE FROM hasHardware WHERE groupID = '{0}';", groupID);
 

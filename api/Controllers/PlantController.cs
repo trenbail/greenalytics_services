@@ -26,6 +26,11 @@ namespace api.Controllers
         }
 
         #region GET
+        [HttpGet("hardware")]
+        public ActionResult<List<List<string>>> GetAllHardware(string accountID)
+        {
+            return PlantGroupRepository.GetAllHardware(accountID);
+        }
         [HttpGet("plant/{name}")]
         public ActionResult<Plant> GetPlantByName(string name)
         {
@@ -104,6 +109,47 @@ namespace api.Controllers
         #endregion
 
         #region POST
+
+        [HttpPost("plantGroup/{plantGroupName}/hardware/{hardwareID}")]
+        public void AddHardwareToPlantGroup(string accountID, string plantGroupName, string hardwareID)
+        {
+            if (string.IsNullOrEmpty(accountID))
+            {
+                throw new ArgumentException("message", nameof(accountID));
+            }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
+            if (hardwareID == null)
+            {
+                throw new ArgumentNullException(nameof(hardwareID));
+            }
+            PlantGroupRepository.AddHardwareToPlantGroup(accountID, plantGroupName, hardwareID);
+        }
+
+        [HttpDelete("plantGroup/{plantGroupName}/hardware/{hardwareID}")]
+        public void RemoveHardwareFromPlantGroup(string accountID, string plantGroupName, string hardwareID)
+        {
+            if (string.IsNullOrEmpty(accountID))
+            {
+                throw new ArgumentException("message", nameof(accountID));
+            }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
+            if (hardwareID == null)
+            {
+                throw new ArgumentNullException(nameof(hardwareID));
+            }
+            PlantGroupRepository.RemoveHardwareFromPlantGroup(accountID, plantGroupName, hardwareID);
+        }
+
         [HttpPost("garden/{gardenName}")]
         public void PostGarden(string accountID, string gardenName)
         {
