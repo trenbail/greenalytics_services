@@ -50,7 +50,14 @@ namespace db.sensors
             Close();
         }
 
+        public string getMacByAcctANDpgName(string accountID, string pgName)
+        {
+            var g = new groups.Groups();
+            return g.GetHardwareID(accountID, pgName);
+        }
+
         //used for pulling hardware data
+        //returns [time][value]
         public List<List<long>> pulldata(string MACaddress, string type, int time)
         {
 

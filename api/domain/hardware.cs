@@ -2,9 +2,11 @@ using System;
 
 namespace api.domain
 {
-    public class Hardware : Entity
+    public class Hardware: Entity
     {
-        public Hardware()
+        public readonly string hardwareID;
+
+        public Hardware(string hardwareID)
         {
         }
     }

@@ -24,8 +24,81 @@ namespace api.Controllers
             PlantGroupRepository = plantGroupRepository;
             GardenRepository = gardenRepository;
         }
+        #region DELETE
+
+        [HttpDelete("garden/{gardenName}")]
+        public void DeleteGarden(string accountID, string gardenName)
+        {
+            if (string.IsNullOrEmpty(accountID))
+            {
+                throw new ArgumentException("message", nameof(accountID));
+            }
+            if (string.IsNullOrEmpty(gardenName))
+            {
+                throw new ArgumentException("message", nameof(gardenName));
+            }
+
+            Garden garden = GardenRepository.GetByName(gardenName, accountID);
+            GardenRepository.DeleteGarden(garden, accountID);
+        }
+
+        [HttpDelete("garden/{gardenName}/plantGroup/{plantGroupName}")]
+        public void DeletePlantGroup(string gardenName, string plantGroupName, string accountID)
+        {
+            if (string.IsNullOrEmpty(gardenName))
+            {
+                throw new ArgumentException("message", nameof(gardenName));
+            }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
+            Garden garden = GardenRepository.GetByName(gardenName, accountID);
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
+
+            PlantGroupRepository.DeletePlantGroup(garden, plantGroup, accountID);
+
+        }
+
+        [HttpDelete("garden/{gardenName}/plantGroup/{plantGroupName}/plant/{plantName}")]
+        public void DeletePlantFromPlantGroup(string gardenName, string plantGroupName, string plantName, string accountID)
+        {
+            if (string.IsNullOrEmpty(gardenName))
+            {
+                throw new ArgumentException("message", nameof(gardenName));
+            }
+
+            if (string.IsNullOrEmpty(plantGroupName))
+            {
+                throw new ArgumentException("message", nameof(plantGroupName));
+            }
+
+            if (string.IsNullOrEmpty(plantName))
+            {
+                throw new ArgumentException("message", nameof(plantName));
+            }
+
+            Garden garden = GardenRepository.GetByName(gardenName, accountID);
+
+            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
+
+            Plant plant = PlantRepository.GetByName(plantName);
+
+            //Not sure this is needed?
+            plantGroup.DeletePlant(plant);
+            PlantGroupRepository.DeletePlantFromPlantGroup(plantGroup, plant, accountID);
+        }
+
+        #endregion
 
         #region GET
+        [HttpGet("hardware")]
+        public ActionResult<List<List<string>>> GetAllHardware(string accountID)
+        {
+            return PlantGroupRepository.GetAllHardware(accountID);
+        }
         [HttpGet("plant/{name}")]
         public ActionResult<Plant> GetPlantByName(string name)
         {
@@ -104,6 +177,47 @@ namespace api.Controllers
         #endregion
 
         #region POST
+
+        [HttpPost("plantGroup/{plantGroupName}/hardware/{hardwareID}")]
+        public void AddHardwareToPlantGroup(string accountID, string plantGroupName, string hardwareID)
+        {
+            if (string.IsNullOrEmpty(accountID))
+            {
+                throw new ArgumentException("message", nameof(accountID));
+            }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
+            if (hardwareID == null)
+            {
+                throw new ArgumentNullException(nameof(hardwareID));
+            }
+            PlantGroupRepository.AddHardwareToPlantGroup(accountID, plantGroupName, hardwareID);
+        }
+
+        [HttpDelete("plantGroup/{plantGroupName}/hardware/{hardwareID}")]
+        public void RemoveHardwareFromPlantGroup(string accountID, string plantGroupName, string hardwareID)
+        {
+            if (string.IsNullOrEmpty(accountID))
+            {
+                throw new ArgumentException("message", nameof(accountID));
+            }
+
+            if (plantGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(plantGroupName));
+            }
+
+            if (hardwareID == null)
+            {
+                throw new ArgumentNullException(nameof(hardwareID));
+            }
+            PlantGroupRepository.RemoveHardwareFromPlantGroup(accountID, plantGroupName, hardwareID);
+        }
+
         [HttpPost("garden/{gardenName}")]
         public void PostGarden(string accountID, string gardenName)
         {
@@ -170,77 +284,6 @@ namespace api.Controllers
             plantGroup.AddPlant(plant);
             PlantGroupRepository.AddPlantToPlantGroup(plantGroup, plant, accountID); //should be update
         }
-
-        #endregion
-
-        #region DELETE
-
-        [HttpDelete("garden/{gardenName}")]
-        public void DeleteGarden(string accountID,string gardenName)
-        {
-            if (string.IsNullOrEmpty(accountID))
-            {
-                throw new ArgumentException("message", nameof(accountID));
-            }
-            if (string.IsNullOrEmpty(gardenName))
-            {
-                throw new ArgumentException("message", nameof(gardenName));
-            }
-
-            Garden garden = GardenRepository.GetByName(gardenName, accountID);
-            GardenRepository.DeleteGarden(garden, accountID);       
-        }
-
-        [HttpDelete("garden/{gardenName}/plantGroup/{plantGroupName}")]
-        public void DeletePlantGroup(string gardenName, string plantGroupName, string accountID)
-        {
-            if (string.IsNullOrEmpty(gardenName))
-            {
-                throw new ArgumentException("message", nameof(gardenName));
-            }
-
-            if (plantGroupName == null)
-            {
-                throw new ArgumentNullException(nameof(plantGroupName));
-            }
-
-            Garden garden = GardenRepository.GetByName(gardenName,accountID);
-            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
-
-            PlantGroupRepository.DeletePlantGroup(garden,plantGroup,accountID);
-
-        }
-
-        [HttpDelete("garden/{gardenName}/plantGroup/{plantGroupName}/plant/{plantName}")]
-        public void DeletePlantFromPlantGroup(string gardenName, string plantGroupName, string plantName, string accountID)
-        {
-            if (string.IsNullOrEmpty(gardenName))
-            {
-                throw new ArgumentException("message", nameof(gardenName));
-            }
-
-            if (string.IsNullOrEmpty(plantGroupName))
-            {
-                throw new ArgumentException("message", nameof(plantGroupName));
-            }
-
-            if (string.IsNullOrEmpty(plantName))
-            {
-                throw new ArgumentException("message", nameof(plantName));
-            }
-
-            Garden garden = GardenRepository.GetByName(gardenName, accountID);
-
-            PlantGroup plantGroup = PlantGroupRepository.GetByName(plantGroupName, accountID);
-
-            Plant plant = PlantRepository.GetByName(plantName);
-
-            //Not sure this is needed?
-            plantGroup.DeletePlant(plant);
-            PlantGroupRepository.DeletePlantFromPlantGroup(plantGroup, plant, accountID);
-        }
-
-
 
         #endregion
     }
