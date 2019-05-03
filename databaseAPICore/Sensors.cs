@@ -43,6 +43,7 @@ namespace db.sensors
             //Query wont run unless it is in the bounds
             bool runQ = false;
 
+            //So I can commit
             if (type == "temperature")
             {
                 if (value < 100 && value > 30)
