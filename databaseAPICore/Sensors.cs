@@ -40,14 +40,35 @@ namespace db.sensors
             //constructing query
             string query = String.Format("INSERT INTO {0} VALUES('{1}',{2},{3});", type, MACaddress, time, value);
 
-            //Open connection
-            Open();
+            bool runQ = false;
 
-            //Create Command
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.ExecuteNonQuery();
+            if (type == "temperature")
+            {
+                if (value < 100 && value > 30)
+                {
+                    runQ = true;
+                }
+            }
+            if (type == "humidity")
+            {
+                if (value < 80 && value > 0)
+                {
+                    runQ = true;
+                }
+            }
 
-            Close();
+            if(runQ == true)
+            {
+                //Open connection
+                Open();
+
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+
+                Close();
+            }
+
         }
 
         public string getMacByAcctANDpgName(string accountID, string pgName)
