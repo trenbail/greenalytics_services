@@ -12,7 +12,7 @@ namespace api.Controllers
     public class WaterMessage : Message
     {
         readonly string body = " needs water!";
-        readonly string title = "this is a water notification title";
+        readonly string title = "Water Notification!";
         private string token;
 
         public WaterMessage(string token, string pg)
