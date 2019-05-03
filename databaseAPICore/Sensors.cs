@@ -40,6 +40,7 @@ namespace db.sensors
             //constructing query
             string query = String.Format("INSERT INTO {0} VALUES('{1}',{2},{3});", type, MACaddress, time, value);
 
+            //Query wont run unless it is in the bounds
             bool runQ = false;
 
             if (type == "temperature")
