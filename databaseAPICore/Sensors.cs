@@ -91,7 +91,11 @@ namespace db.sensors
         public int getLatestSensor(string userID, string pgName, string type)
         {
             string MAC = getMacByAcctANDpgName(userID, pgName);
-            string query = String.Format("Select value FROM {0} WHERE MACaddress = '{1}' LIMIT 1", type, MAC);
+            string query = String.Format(
+                @"
+                SELECT time, value FROM {0} WHERE MACaddress='{1}' ORDER BY time DESC LIMIT 1
+                ", type, MAC
+                );
             Open();
             MySqlCommand cmd = new MySqlCommand(query, connection);
             MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -100,7 +104,8 @@ namespace db.sensors
             try
             {
 
-            value = dataReader.GetInt64("value");
+                value = dataReader.GetInt64("value");
+                long time = dataReader.GetInt64("time");
             } catch
             {
 
