@@ -11,6 +11,7 @@ namespace api.domain
         public List<Plant> Plants;
         private Hardware Hardware;
         private List<IPlantGroupStat> statistics;
+        public Summary summary;
 
         public PlantGroup(string name)
         {
@@ -73,5 +74,18 @@ namespace api.domain
         {
 
         }
+    }
+
+    public class Summary
+    {
+        public readonly int temp;
+        public readonly int humidity;
+
+        public Summary(int temp, int humidity)
+        {
+            this.temp = temp;
+            this.humidity = humidity;
+        }
+
     }
 }

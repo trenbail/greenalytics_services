@@ -87,5 +87,28 @@ namespace db.sensors
 
             return valueList;
         }
+
+        public int getLatestSensor(string userID, string pgName, string type)
+        {
+            string MAC = getMacByAcctANDpgName(userID, pgName);
+            string query = String.Format("Select value FROM {0} WHERE MACaddress = '{1}' LIMIT 1", type, MAC);
+            Open();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+            long value = 0;
+            dataReader.Read();
+            try
+            {
+
+            value = dataReader.GetInt64("value");
+            } catch
+            {
+
+            }
+            Close();
+            return (int)value;
+        }
+        public int getLatestTemperature(string userID, string pgName) { return getLatestSensor(userID, pgName, "temperature"); }
+        public int getLatestHumidity(string userID, string pgName) { return getLatestSensor(userID, pgName, "humidity"); }
     }
 }

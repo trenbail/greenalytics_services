@@ -80,6 +80,10 @@ namespace api.repositories
                 .ToList()
                 .ForEach(plant => plantGroup.AddPlant(plant));
             //TODO: Add Hardware
+            int temp = new Sensors().getLatestTemperature(userID, name);
+            int humidity = new Sensors().getLatestHumidity(userID, name);
+
+            plantGroup.summary = new Summary(temp, humidity);
             return plantGroup;
         }
 
